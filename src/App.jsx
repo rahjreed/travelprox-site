@@ -24,11 +24,13 @@ import {
   Lock,
   X,
   AlertCircle,
-  Timer
+  Timer,
+  PlayCircle
 } from 'lucide-react';
 
 const apiKey = "";
 const OFFICIAL_HERO_IMAGE = "https://images.travelprox.com/splash/villa.png";
+const TESTIMONIAL_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/02956ab7-33a5-4f3b-8754-ef763a308f28";
 
 // Official Destination Images
 const DESTINATION_ASSETS = {
@@ -105,9 +107,6 @@ const ActionButton = ({ onClick, children, className = "", variant = "primary", 
   );
 };
 
-/**
- * WAITLIST MODAL - INTEGRATED WITH KIT FORM 9018875
- */
 const WaitlistModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
   return (
@@ -127,7 +126,6 @@ const WaitlistModal = ({ isOpen, onClose }) => {
             Our unlisted rates are protected by member-only agreements. Join the waitlist to be notified when a spot opens in the club.
           </p>
           
-          {/* INTEGRATED KIT FORM FOR POPUP */}
           <form 
             action="https://app.kit.com/forms/9018875/subscriptions" 
             method="post" 
@@ -157,9 +155,6 @@ const WaitlistModal = ({ isOpen, onClose }) => {
   );
 };
 
-/**
- * TRAVEL SEARCH WIDGET
- */
 const TravelSearchWidget = ({ activeTab, setActiveTab, onSearchAttempt }) => {
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
@@ -172,8 +167,8 @@ const TravelSearchWidget = ({ activeTab, setActiveTab, onSearchAttempt }) => {
     <div className="w-full bg-white rounded-[32px] md:rounded-[40px] overflow-hidden border border-slate-200 shadow-xl">
       <div className="flex bg-slate-50 border-b border-slate-100">
         {[
-          { id: 'flights', label: 'Inspiration Search', icon: <Plane className="w-3 h-3" /> },
-          { id: 'hotels', label: 'Compare Stays', icon: <Building2 className="w-3 h-3" /> },
+          { id: 'flights', label: 'Flights', icon: <Plane className="w-3 h-3" /> },
+          { id: 'hotels', label: 'Hotels', icon: <Building2 className="w-3 h-3" /> },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -283,7 +278,7 @@ const HomeView = ({ heroImage, activeSearchTab, setActiveSearchTab, setView, ope
       </div>
     </section>
 
-    {/* Destination Grid */}
+    {/* Member Insights Section */}
     <section className="max-w-7xl mx-auto px-6 py-32 bg-white">
       <ScrollReveal>
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-slate-100 pb-12">
@@ -328,6 +323,49 @@ const HomeView = ({ heroImage, activeSearchTab, setActiveSearchTab, setView, ope
       </div>
     </section>
 
+    {/* TESTIMONIAL VIDEO SECTION */}
+    <section className="bg-white pb-32 px-6">
+      <div className="max-w-6xl mx-auto">
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 mb-6 text-[10px] font-black tracking-[0.3em] uppercase bg-amber-50 text-amber-600 rounded-full border border-amber-100">
+              <PlayCircle className="w-3 h-3" />
+              <span>Inside the Club</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-slate-950 tracking-tighter uppercase leading-none italic mb-6">
+              HEAR FROM OUR MEMBERS.
+            </h2>
+            <p className="text-slate-500 font-medium max-w-2xl mx-auto">
+              Real feedback from travelers who have stepped behind the velvet rope and transformed how they experience the world.
+            </p>
+          </div>
+
+          <div className="relative w-full rounded-[40px] md:rounded-[60px] overflow-hidden bg-slate-950 shadow-2xl border-[8px] border-slate-50 group">
+            <div className="aspect-video w-full">
+              <iframe 
+                src={TESTIMONIAL_VIDEO_URL} 
+                className="w-full h-full"
+                loading="lazy" 
+                style={{ border: 0 }}
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-slate-950/80 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+              <p className="text-white text-[10px] font-black uppercase tracking-widest">Featured Story • Member Verified</p>
+            </div>
+          </div>
+          
+          <div className="mt-12 text-center">
+            <ActionButton variant="primary" className="mx-auto px-10" onClick={openWaitlist}>
+              Join the Movement <MoveRight className="ml-2 w-4 h-4" />
+            </ActionButton>
+          </div>
+        </ScrollReveal>
+      </div>
+    </section>
+
+    {/* Information Section */}
     <section className="bg-slate-50 py-32 border-y border-slate-100">
        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-20">
           <div className="text-center">
@@ -429,7 +467,7 @@ const AgencyView = ({ setView }) => (
                   </ActionButton>
                   
                   <div className="mt-4 text-[10px] font-bold text-slate-300 uppercase tracking-widest">
-                    Securely processed by Kit
+                    Securely processed by Kit • travelprox.com
                   </div>
                </form>
              </div>
