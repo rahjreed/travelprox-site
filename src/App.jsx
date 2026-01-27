@@ -169,6 +169,7 @@ const TravelSearchWidget = ({ activeTab, setActiveTab, onSearchAttempt }) => {
         {[
           { id: 'flights', label: 'Flights', icon: <Plane className="w-3 h-3" /> },
           { id: 'hotels', label: 'Hotels', icon: <Building2 className="w-3 h-3" /> },
+          { id: 'cruises', label: 'Cruises', icon: <Ship className="w-3 h-3" /> },
         ].map((tab) => (
           <button
             key={tab.id}
