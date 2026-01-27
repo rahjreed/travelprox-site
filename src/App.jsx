@@ -245,7 +245,7 @@ const HomeView = ({ openWaitlist, setView }) => {
             <div className="mb-8 flex flex-col items-center space-y-6">
               <SavingsTicker />
               <h1 className="text-6xl md:text-[11rem] font-black text-white tracking-tighter leading-[0.75] uppercase drop-shadow-2xl">
-                THE TRAVEL <br/> <span className="text-yellow-400 italic">CARTEL.</span>
+                THE TRAVEL <br/> <span className="text-yellow-400 italic drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)]">CARTEL.</span>
               </h1>
               <p className="text-white text-xl md:text-3xl font-medium max-w-4xl mx-auto leading-tight drop-shadow-lg opacity-90">
                 Stop paying retail. Our members access "Unlisted" wholesale rates protected by private travel agreements.
@@ -493,7 +493,7 @@ const AgencyView = ({ setView }) => (
               </div>
               <h3 className="text-4xl font-black mb-12 uppercase tracking-tighter text-center italic text-slate-950 underline decoration-amber-500 decoration-8 underline-offset-8">Promoter Inquiry</h3>
               
-              <form action="https://app.kit.com/forms/9018896/subscriptions" method="post" data-sv-form="9018896" data-uid="33bdc59b1b" className="space-y-8">
+              <form action="https://app.kit.com/forms/9018899/subscriptions" method="post" data-sv-form="9018899" data-uid="33bdc59b1b" className="space-y-8">
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2">Professional Identity</label>
                     <input name="fields[first_name]" required type="text" placeholder="John Doe / Agency Name" className="w-full h-18 bg-slate-50 rounded-3xl px-8 outline-none focus:ring-4 ring-yellow-400/20 text-slate-900 font-bold border-2 border-slate-100 transition-all py-6" />
