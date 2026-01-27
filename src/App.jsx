@@ -6,7 +6,6 @@ import { ActionButton } from '../components/ActionButton';
 import { TravelSearchWidget } from '../components/TravelSearchWidget';
 import { ImageData, SearchTab, ViewState } from '../types';
 
-// Define HomeViewProps interface to resolve compilation error
 interface HomeViewProps {
   images: ImageData;
   activeSearchTab: SearchTab;
@@ -15,14 +14,6 @@ interface HomeViewProps {
   openWaitlist: () => void;
   spotsRemaining: number;
 }
-
-// Custom G650 Private Jet Silhouette for high-end realism
-const PrivateJetSVG = () => (
-  <svg viewBox="0 0 100 100" className="w-24 h-24 text-amber-500 fill-current drop-shadow-[0_10px_15px_rgba(0,0,0,0.3)] rotate-90">
-    <path d="M50 10 C52 10 55 15 55 35 L55 55 L95 75 L95 80 L55 70 L55 85 L65 92 L65 95 L50 90 L35 95 L35 92 L45 85 L45 70 L5 80 L5 75 L45 55 L45 35 C45 15 48 10 50 10 Z" />
-    <circle cx="50" cy="85" r="2" className="text-white fill-current opacity-50" />
-  </svg>
-);
 
 export const HomeView: React.FC<HomeViewProps> = ({ 
   images, 
@@ -60,29 +51,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="w-full h-full bg-slate-900" />
           )}
           <div className="absolute inset-0 bg-slate-950/50 backdrop-blur-[2px]" />
-        </div>
-
-        {/* Cinematic Realistic Jet Flyover Layer */}
-        <div className="absolute inset-0 pointer-events-none z-20 overflow-visible flex items-center justify-center">
-          <div className="animate-jet-realistic flex items-center relative">
-            
-            {/* Realistic Contrail */}
-            <div className="absolute right-[80%] top-1/2 -translate-y-1/2 flex items-center origin-right">
-                <div className="animate-trail-realistic h-2 bg-gradient-to-l from-white/40 via-white/10 to-transparent blur-md rounded-full" />
-                <div className="animate-trail-realistic h-1 bg-white/20 blur-sm rounded-full -ml-40" />
-            </div>
-
-            {/* Heat Haze Distortion (behind engines) */}
-            <div className="absolute left-2 top-1/2 -translate-y-1/2 w-32 h-16 heat-haze bg-white/5 blur-xl rounded-full" />
-
-            {/* The Private Jet */}
-            <div className="relative">
-              <PrivateJetSVG />
-              {/* Navigation Lights */}
-              <div className="absolute top-[20%] left-1/2 w-1 h-1 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_red]" />
-              <div className="absolute bottom-[20%] left-1/2 w-1 h-1 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_green]" />
-            </div>
-          </div>
         </div>
         
         <div className="relative z-10 w-full max-w-6xl px-6 text-center">
@@ -256,4 +224,3 @@ export const HomeView: React.FC<HomeViewProps> = ({
     </div>
   );
 };
-
