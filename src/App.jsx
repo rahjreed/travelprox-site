@@ -355,47 +355,51 @@ const HomeView = ({ openWaitlist, setView }) => {
         </div>
       </section>
 
-      {/* VIDEO TESTIMONIAL */}
+      {/* VIDEO TESTIMONIAL - NEW EDITORIAL LAYOUT */}
       <section className="bg-slate-950 py-32 md:py-48 px-6 overflow-hidden">
         <div className="max-w-6xl mx-auto">
-          <ScrollReveal>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-              <div>
-                <div className="inline-flex items-center space-x-2 px-4 py-2 mb-8 text-[10px] font-black tracking-[0.4em] uppercase bg-white/10 text-yellow-400 rounded-full border border-white/10">
-                  <PlayCircle className="w-4 h-4" />
-                  <span>Member Diaries</span>
+          <ScrollReveal className="text-center">
+            {/* Header Area */}
+            <div className="inline-flex items-center space-x-2 px-4 py-2 mb-8 text-[10px] font-black tracking-[0.4em] uppercase bg-white/10 text-yellow-400 rounded-full border border-white/10">
+              <PlayCircle className="w-4 h-4" />
+              <span>Member Diaries</span>
+            </div>
+            <h2 className="text-6xl md:text-[9rem] font-black text-white tracking-tighter uppercase leading-[0.8] mb-12 drop-shadow-lg">
+              REAL ACCESS. <br/> <span className="text-white/30 italic">REAL SAVINGS.</span>
+            </h2>
+
+            {/* Feature Row - Bridging content */}
+            <div className="flex flex-wrap justify-center gap-4 md:gap-12 mb-16">
+              {[
+                "Wholesale Hotel Inventory",
+                "Flight Consolidator Rates",
+                "Luxury Cruise Access",
+                "Zero Commissions"
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-3 rounded-2xl">
+                  <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" />
+                  <span className="text-white/90 font-bold text-sm uppercase tracking-wider">{item}</span>
                 </div>
-                <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase leading-[0.85] mb-12">
-                  REAL <br/> ACCESS. <br/> <span className="text-white/40 italic">REAL SAVINGS.</span>
-                </h2>
-                <div className="space-y-8 mb-12">
-                   {[
-                    "Exclusive wholesale hotel inventory",
-                    "Global flight consolidator rates",
-                    "Luxury cruise & villa access",
-                    "No commissions. Just net costs."
-                   ].map((item, idx) => (
-                    <div key={idx} className="flex items-center space-x-4">
-                      <CheckCircle2 className="w-6 h-6 text-green-500" />
-                      <span className="text-white font-bold text-lg">{item}</span>
-                    </div>
-                   ))}
-                </div>
-                <ActionButton variant="primary" className="px-10" onClick={openWaitlist}>Explore Member Life</ActionButton>
-              </div>
-              <div className="relative">
-                <div className="absolute -inset-10 bg-yellow-400/20 blur-[100px] rounded-full animate-pulse" />
-                <div className="relative aspect-[9/16] md:aspect-video w-full rounded-[60px] overflow-hidden border-[12px] border-white/5 shadow-3xl">
-                   <iframe 
-                    src={TESTIMONIAL_VIDEO_URL} 
-                    className="w-full h-full scale-[1.01]"
-                    loading="lazy" 
-                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
-                    allowFullScreen
-                  />
-                </div>
+              ))}
+            </div>
+
+            {/* Video Centered Centerpiece */}
+            <div className="relative max-w-5xl mx-auto mb-16 group">
+              <div className="absolute -inset-10 bg-yellow-400/10 blur-[100px] rounded-full animate-pulse" />
+              <div className="relative aspect-video w-full rounded-[40px] md:rounded-[64px] overflow-hidden border-[8px] md:border-[16px] border-white/5 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] transition-transform duration-700 group-hover:scale-[1.01]">
+                <iframe 
+                  src={TESTIMONIAL_VIDEO_URL} 
+                  className="w-full h-full"
+                  loading="lazy" 
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
+                  allowFullScreen
+                />
               </div>
             </div>
+
+            <ActionButton variant="primary" className="mx-auto px-12 py-6 text-lg" onClick={openWaitlist}>
+              Explore Member Life <MoveRight className="ml-3 w-5 h-5" />
+            </ActionButton>
           </ScrollReveal>
         </div>
       </section>
