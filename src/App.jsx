@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   Globe,
   Camera,
@@ -24,12 +24,11 @@ import {
   Lock,
   X,
   AlertCircle,
-  Timer,
-  Facebook
+  Timer
 } from 'lucide-react';
 
 const apiKey = "";
-const OFFICIAL_HERO_IMAGE = "https://images.travelprox.com/splash/resort.png";
+const OFFICIAL_HERO_IMAGE = "https://images.travelprox.com/splash/villa.png";
 
 // Official Destination Images
 const DESTINATION_ASSETS = {
@@ -77,7 +76,7 @@ const ScrollReveal = ({ children, width = "w-full" }) => {
   );
 };
 
-const ActionButton = ({ onClick, children, className = "", variant = "primary", noGloss = false }) => {
+const ActionButton = ({ onClick, children, className = "", variant = "primary", noGloss = false, type = "button" }) => {
   const styles = {
     primary: "bg-yellow-400 hover:bg-yellow-500 text-slate-950", 
     secondary: "bg-slate-950 hover:bg-black text-white",
@@ -90,6 +89,7 @@ const ActionButton = ({ onClick, children, className = "", variant = "primary", 
 
   return (
     <button 
+      type={type}
       onClick={onClick} 
       className={`relative overflow-hidden px-8 py-4 rounded-2xl font-bold transition-all duration-300 active:scale-95 flex items-center justify-center space-x-2 ${styles[variant]} ${className}`}
     >
@@ -106,17 +106,17 @@ const ActionButton = ({ onClick, children, className = "", variant = "primary", 
 };
 
 /**
- * WAITLIST MODAL
+ * WAITLIST MODAL - INTEGRATED WITH KIT FORM 9018875
  */
 const WaitlistModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 backdrop-blur-md bg-slate-950/40">
-      <div className="bg-white w-full max-w-lg rounded-[40px] p-10 relative shadow-2xl animate-in zoom-in-95 duration-300">
-        <button onClick={onClose} className="absolute top-6 right-6 p-2 hover:bg-slate-100 rounded-full transition-colors">
+      <div className="bg-white w-full max-w-lg rounded-[40px] p-10 relative shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
+        <button onClick={onClose} className="absolute top-6 right-6 p-2 hover:bg-slate-100 rounded-full transition-colors z-20">
           <X className="w-6 h-6 text-slate-400" />
         </button>
-        <div className="text-center">
+        <div className="text-center relative z-10">
           <div className="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 mx-auto mb-6">
             <Lock className="w-8 h-8" />
           </div>
@@ -126,10 +126,31 @@ const WaitlistModal = ({ isOpen, onClose }) => {
           <p className="text-slate-500 font-medium mb-8 leading-relaxed text-sm">
             Our unlisted rates are protected by member-only agreements. Join the waitlist to be notified when a spot opens in the club.
           </p>
-          <div className="space-y-4">
-             <input type="email" placeholder="Your Email Address" className="w-full h-16 bg-slate-50 border border-slate-100 rounded-2xl px-6 outline-none focus:ring-2 ring-yellow-400/50 text-slate-900 font-bold" />
-             <ActionButton variant="waitlist" className="w-full py-5">Request Member Invite</ActionButton>
-          </div>
+          
+          {/* INTEGRATED KIT FORM FOR POPUP */}
+          <form 
+            action="https://app.kit.com/forms/9018875/subscriptions" 
+            method="post" 
+            data-sv-form="9018875" 
+            data-uid="d33b584771" 
+            className="space-y-4"
+          >
+             <div className="text-left">
+               <input 
+                 name="email_address" 
+                 required 
+                 type="email" 
+                 placeholder="Your Email Address" 
+                 className="w-full h-16 bg-slate-50 border border-slate-100 rounded-2xl px-6 outline-none focus:ring-2 ring-yellow-400/50 text-slate-900 font-bold" 
+               />
+             </div>
+             <ActionButton type="submit" variant="waitlist" className="w-full py-5">
+               Request Member Invite
+             </ActionButton>
+             <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest mt-4">
+               Processed securely via Kit
+             </p>
+          </form>
         </div>
       </div>
     </div>
@@ -176,7 +197,7 @@ const TravelSearchWidget = ({ activeTab, setActiveTab, onSearchAttempt }) => {
               <MapPin className="w-5 h-5 text-amber-600" />
               <div className="flex flex-col w-full">
                 <span className="text-[9px] font-black uppercase text-slate-400">Destination</span>
-                <input type="text" value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="Search a city..." className="bg-transparent font-bold text-slate-700 outline-none w-full text-sm" />
+                <input type="text" value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="Where to?" className="bg-transparent font-bold text-slate-700 outline-none w-full text-sm" />
               </div>
             </div>
             <div className="bg-slate-50 border border-slate-100 p-4 rounded-2xl flex items-center space-x-4 group cursor-text">
@@ -227,7 +248,7 @@ const Header = ({ setView }) => (
 /**
  * MAIN VIEWS
  */
-const HomeView = ({ heroImage, activeSearchTab, setActiveSearchTab, setView, openWaitlist, spotsLeft }) => (
+const HomeView = ({ heroImage, activeSearchTab, setActiveSearchTab, setView, openWaitlist }) => (
   <div className="bg-white min-h-screen text-slate-900 font-sans">
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 pb-24">
       <div className="absolute inset-0 z-0">
@@ -237,12 +258,6 @@ const HomeView = ({ heroImage, activeSearchTab, setActiveSearchTab, setView, ope
       <div className="relative z-10 w-full max-w-6xl px-6">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-4 px-5 py-2 mb-10 text-[10px] font-black tracking-[0.2em] uppercase bg-white/90 backdrop-blur-md text-slate-950 rounded-full border border-slate-200 shadow-lg">
-              <span className="flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                <span>Only {spotsLeft} Access Spots Left for January</span>
-              </span>
-            </div>
             <h1 className="text-5xl md:text-[10rem] font-black text-white mb-8 tracking-tighter leading-[0.8] uppercase">
               ACCESS THE <br/> <span className="text-yellow-400 italic drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]">UNLISTED.</span>
             </h1>
@@ -313,7 +328,6 @@ const HomeView = ({ heroImage, activeSearchTab, setActiveSearchTab, setView, ope
       </div>
     </section>
 
-    {/* Information Section */}
     <section className="bg-slate-50 py-32 border-y border-slate-100">
        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-20">
           <div className="text-center">
@@ -334,7 +348,7 @@ const HomeView = ({ heroImage, activeSearchTab, setActiveSearchTab, setView, ope
        </div>
     </section>
 
-    <footer className="bg-white py-24 px-6 text-center border-t border-slate-100">
+    <footer className="bg-white py-24 px-6 border-t border-slate-100">
        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-12 md:space-y-0 text-left">
           <div className="flex flex-col items-center md:items-start">
              <div className="flex items-center space-x-3 mb-6">
@@ -347,6 +361,11 @@ const HomeView = ({ heroImage, activeSearchTab, setActiveSearchTab, setView, ope
              <button onClick={() => setView('agency')} className="text-slate-950 font-black uppercase tracking-widest text-[11px] border-2 border-slate-950 px-10 py-5 rounded-full hover:bg-slate-950 hover:text-white transition-all">Promoters Apply</button>
              <button onClick={openWaitlist} className="text-white bg-amber-600 font-black uppercase tracking-widest text-[11px] px-10 py-5 rounded-full hover:opacity-90 transition-all">Join the Waitlist</button>
           </div>
+       </div>
+       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-50 text-center">
+          <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">
+            © 2026 <a href="https://callistadigital.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500 transition-colors">Callista Digital</a> and Travel Pro X. All rights reserved.
+          </p>
        </div>
     </footer>
   </div>
@@ -373,28 +392,56 @@ const AgencyView = ({ setView }) => (
                <button onClick={() => setView('home')} className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 hover:text-slate-950 transition-all">Back to Global Search</button>
             </div>
           </div>
-          <div className="bg-white p-12 md:p-20 rounded-[60px] border border-slate-200 relative shadow-2xl">
+          <div className="bg-white p-12 md:p-20 rounded-[60px] border border-slate-200 relative shadow-2xl overflow-hidden">
              <div className="relative z-10 text-center">
                <h3 className="text-4xl font-black mb-10 uppercase tracking-tighter italic text-slate-950">Promoter Inquiry</h3>
-               <p className="text-slate-400 mb-8 font-medium text-sm">Use the fields below to register your interest in a custom brand build.</p>
-               <div className="space-y-8">
+               
+               {/* INTEGRATED KIT FORM 9018896 */}
+               <form action="https://app.kit.com/forms/9018896/subscriptions" method="post" data-sv-form="9018896" data-uid="33bdc59b1b" className="space-y-6">
                   <div className="space-y-3 text-left">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 font-bold">Your Professional Name</label>
-                    <input type="text" className="w-full h-16 bg-slate-50 rounded-2xl px-6 outline-none focus:ring-2 ring-yellow-400/50 text-slate-900 font-bold border border-slate-100" />
+                    <input 
+                      name="fields[first_name]"
+                      required
+                      type="text" 
+                      placeholder="Enter your name"
+                      className="w-full h-16 bg-slate-50 rounded-2xl px-6 outline-none focus:ring-2 ring-yellow-400/50 text-slate-900 font-bold border border-slate-100" 
+                    />
                   </div>
                   <div className="space-y-3 text-left">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 font-bold">Traffic Type / Agency</label>
-                    <input type="text" placeholder="Influencer, Agent, Host..." className="w-full h-16 bg-slate-50 rounded-2xl px-6 outline-none focus:ring-2 ring-yellow-400/50 text-slate-900 font-bold border border-slate-100 placeholder:text-slate-300" />
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 font-bold">Email Address</label>
+                    <input 
+                      name="email_address"
+                      required
+                      type="email" 
+                      placeholder="you@example.com" 
+                      className="w-full h-16 bg-slate-50 rounded-2xl px-6 outline-none focus:ring-2 ring-yellow-400/50 text-slate-900 font-bold border border-slate-100" 
+                    />
                   </div>
-                  <ActionButton variant="primary" className="w-full py-7 text-lg uppercase tracking-widest font-black">Register Interest</ActionButton>
-               </div>
+                  
+                  {/* Hidden required Kit attributes */}
+                  <div className="hidden">
+                    <input type="text" name="fields[traffic_type]" value="Email" readOnly />
+                  </div>
+
+                  <ActionButton type="submit" variant="primary" className="w-full py-7 text-lg uppercase tracking-widest font-black">
+                    Register Interest
+                  </ActionButton>
+                  
+                  <div className="mt-4 text-[10px] font-bold text-slate-300 uppercase tracking-widest">
+                    Securely processed by Kit
+                  </div>
+               </form>
              </div>
           </div>
         </div>
       </ScrollReveal>
     </main>
     <footer className="py-20 border-t border-slate-200 text-center px-6">
-       <button onClick={() => setView('home')} className="text-slate-400 hover:text-slate-950 transition-colors uppercase font-black text-[10px] tracking-[0.5em]">Return to Global Comparison Portal</button>
+       <button onClick={() => setView('home')} className="mb-8 text-slate-400 hover:text-slate-950 transition-colors uppercase font-black text-[10px] tracking-[0.5em]">Return to Global Comparison Portal</button>
+       <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest text-center">
+          © 2026 <a href="https://callistadigital.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500 transition-colors">Callista Digital</a> and Travel Pro X. All rights reserved.
+       </p>
     </footer>
   </div>
 );
@@ -404,10 +451,29 @@ const AgencyView = ({ setView }) => (
  */
 const App = () => {
   const [view, setView] = useState('home'); 
-  const [heroImage, setHeroImage] = useState(OFFICIAL_HERO_IMAGE);
   const [activeSearchTab, setActiveSearchTab] = useState('flights');
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-  const [spotsLeft, setSpotsLeft] = useState(7);
+
+  // DYNAMIC SCARCITY LOGIC
+  const { spotsLeft } = useMemo(() => {
+    const now = new Date();
+    const dayOfMonth = now.getDate();
+    const remaining = Math.max(100 - (dayOfMonth - 1) * 3, 2); 
+    return { spotsLeft: remaining };
+  }, []);
+
+  // Script Loader for Kit
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://f.convertkit.com/ckjs/ck.5.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    }
+  }, []);
 
   useEffect(() => { window.scrollTo(0, 0); }, [view]);
 
@@ -419,7 +485,7 @@ const App = () => {
       
       {view === 'home' ? (
         <HomeView 
-          heroImage={heroImage} 
+          heroImage={OFFICIAL_HERO_IMAGE} 
           activeSearchTab={activeSearchTab} 
           setActiveSearchTab={setActiveSearchTab}
           setView={setView}
@@ -442,24 +508,11 @@ const App = () => {
            <Timer className="w-5 h-5 text-slate-950" />
            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-600 rounded-full animate-ping" />
         </div>
-        <div className="flex flex-col items-start leading-none">
-           <span className="text-[10px] font-black uppercase tracking-widest text-slate-950">Access Status</span>
-           <span className="text-[12px] font-black text-slate-950">Only {spotsLeft} Spots Left</span>
+        <div className="flex flex-col items-start leading-none text-left">
+           <span className="text-[10px] font-black uppercase tracking-widest text-slate-950 leading-tight">Access Status</span>
+           <span className="text-[12px] font-black text-slate-950 leading-tight">{spotsLeft} Spots Left</span>
         </div>
       </button>
-
-      {/* Floating Pill: Build by Callista */}
-      <a 
-        href="https://callistadigital.com" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="fixed bottom-24 right-6 z-[100] bg-slate-950 px-5 py-2.5 rounded-full border border-white/10 flex items-center space-x-2 transition-all hover:scale-105 active:scale-95 cursor-pointer group shadow-xl"
-      >
-        <Code className="w-3.5 h-3.5 text-yellow-400 group-hover:rotate-12 transition-transform" />
-        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white">
-          build by <span className="text-yellow-400">callista</span>
-        </span>
-      </a>
     </div>
   );
 };
