@@ -54,7 +54,7 @@ const DESTINATION_ASSETS = {
 const SAVINGS_FEED = [
   { user: "Sarah J.", location: "Miami", saved: "$420", time: "1m ago" },
   { user: "Michael R.", location: "Cancun", saved: "$890", time: "3m ago" },
-  { user: "Elena W.", location: "NYC", saved: "$310", time: "5m ago" },
+  { user: "Elena W.", location: "NYC", saved: "$310", time: "1m ago" },
   { user: "David K.", location: "Vegas", saved: "$1,200", time: "8m ago" },
   { user: "Sophia L.", location: "Paris", saved: "$540", time: "12m ago" },
   { user: "Marcus T.", location: "Dubai", saved: "$2,100", time: "15m ago" },
@@ -259,7 +259,7 @@ const Header = ({ setView }) => (
         <div className="w-[1px] h-4 bg-slate-200 mx-2" />
         <button onClick={() => setView('agency')} className="text-[10px] font-black uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors px-4 py-2 bg-amber-50 rounded-full border border-amber-100">Promoter Hub</button>
       </div>
-      <ActionButton variant="primary" noGloss className="py-2.5 px-6 rounded-xl text-[10px] uppercase tracking-widest" onClick={() => setView('agency')}>Inquire</ActionButton>
+      <ActionButton variant="primary" noGloss className="py-2.5 px-6 rounded-xl text-[10px] uppercase tracking-widest" onClick={() => setView('agency')}>Partner</ActionButton>
     </div>
   </nav>
 );
@@ -453,7 +453,7 @@ const HomeView = ({ openWaitlist, setView }) => {
             <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 mb-8">Navigation</h4>
             <ul className="space-y-6">
               <li><button onClick={() => setView('home')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Global Search</button></li>
-              <li><button onClick={() => setView('agency')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Promoter Portal</button></li>
+              <li><button onClick={() => setView('agency')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Promoter Hub</button></li>
               <li><button onClick={openWaitlist} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Verify Membership</button></li>
             </ul>
           </div>
@@ -504,24 +504,24 @@ const AgencyView = ({ setView }) => (
                   </div>
                </div>
                
-               {/* NEW OBVIOUS WEB DESIGN OFFER CARD */}
-               <div className="relative pt-12">
-                 {/* Floating Bubble Image */}
-                 <div className="absolute top-0 right-10 md:-right-8 z-20">
+               {/* IMPROVED WEB DESIGN OFFER CARD - MOBILE OPTIMIZED */}
+               <div className="relative pt-16 md:pt-12">
+                 {/* Floating Bubble Image - Positioned for better mobile flow */}
+                 <div className="absolute top-0 right-4 md:-right-8 z-20">
                     <div className="relative animate-float">
-                      <div className="w-32 h-32 md:w-44 md:h-44 rounded-full border-[6px] border-white shadow-2xl overflow-hidden gold-glow">
+                      <div className="w-28 h-28 md:w-44 md:h-44 rounded-full border-[4px] md:border-[6px] border-white shadow-2xl overflow-hidden gold-glow">
                         <img src={ROGER_PROFILE_IMAGE} className="w-full h-full object-cover" alt="Roger Reed" />
                       </div>
-                      <div className="absolute -bottom-2 right-4 bg-yellow-400 p-3 rounded-2xl shadow-xl border-4 border-white">
-                        <Wand2 className="w-6 h-6 text-slate-950" />
+                      <div className="absolute -bottom-1 right-2 md:-bottom-2 md:right-4 bg-yellow-400 p-2 md:p-3 rounded-2xl shadow-xl border-2 md:border-4 border-white">
+                        <Wand2 className="w-4 h-4 md:w-6 md:h-6 text-slate-950" />
                       </div>
                     </div>
                  </div>
 
-                 <div className="bg-slate-950 p-10 md:p-14 rounded-[56px] shadow-3xl border-2 border-yellow-400/20 relative overflow-hidden group">
+                 <div className="bg-slate-950 p-8 md:p-14 rounded-[48px] md:rounded-[56px] shadow-3xl border-2 border-yellow-400/20 relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-400/5 to-transparent pointer-events-none" />
                     
-                    <div className="relative z-10 pr-20 md:pr-0">
+                    <div className="relative z-10 pr-16 md:pr-0">
                       <div className="inline-flex items-center space-x-2 px-4 py-1.5 mb-6 text-[10px] font-black tracking-[0.3em] uppercase bg-yellow-400 text-slate-950 rounded-full">
                         <Award className="w-3.5 h-3.5" />
                         <span>Exclusive Team Bonus</span>
@@ -537,49 +537,49 @@ const AgencyView = ({ setView }) => (
 
                       <div className="grid grid-cols-1 gap-4 mb-10">
                         <div className="flex items-center space-x-4 bg-white/5 p-4 rounded-2xl border border-white/10">
-                          <CheckCircle2 className="w-6 h-6 text-yellow-400" />
-                          <span className="text-white font-black uppercase tracking-widest text-xs">16 Years Expert Graphic Design</span>
+                          <CheckCircle2 className="w-6 h-6 text-yellow-400 shrink-0" />
+                          <span className="text-white font-black uppercase tracking-widest text-[10px] md:text-xs">16 Years Expert Graphic Design</span>
                         </div>
                         <div className="flex items-center space-x-4 bg-white/5 p-4 rounded-2xl border border-white/10">
-                          <CheckCircle2 className="w-6 h-6 text-yellow-400" />
-                          <span className="text-white font-black uppercase tracking-widest text-xs">Custom High-Conversion Capture Pages</span>
+                          <CheckCircle2 className="w-6 h-6 text-yellow-400 shrink-0" />
+                          <span className="text-white font-black uppercase tracking-widest text-[10px] md:text-xs">Custom High-Conversion Capture Pages</span>
                         </div>
                         <div className="flex items-center space-x-4 bg-white/5 p-4 rounded-2xl border border-white/10">
-                          <CheckCircle2 className="w-6 h-6 text-yellow-400" />
-                          <span className="text-white font-black uppercase tracking-widest text-xs">Full Tech System Support</span>
+                          <CheckCircle2 className="w-6 h-6 text-yellow-400 shrink-0" />
+                          <span className="text-white font-black uppercase tracking-widest text-[10px] md:text-xs">Full Tech System Support</span>
                         </div>
                       </div>
 
                       <div className="bg-white/10 rounded-3xl p-6 border-l-8 border-yellow-400">
-                        <p className="text-white/60 text-xs uppercase font-black tracking-widest mb-1">Standard Industry Value</p>
-                        <p className="text-3xl font-black text-white tracking-tighter">$1,000+ <span className="text-yellow-400 line-through text-xl opacity-50 ml-2">COST</span> <span className="text-xs bg-white text-slate-950 px-3 py-1 rounded-full ml-3 italic">FREE FOR TEAM</span></p>
+                        <p className="text-white/60 text-[10px] md:text-xs uppercase font-black tracking-widest mb-1">Standard Industry Value</p>
+                        <p className="text-2xl md:text-3xl font-black text-white tracking-tighter">$1,000+ <span className="text-yellow-400 line-through text-lg md:text-xl opacity-50 ml-2">COST</span> <span className="text-[10px] bg-white text-slate-950 px-3 py-1 rounded-full ml-3 italic shrink-0 whitespace-nowrap">FREE FOR TEAM</span></p>
                       </div>
                     </div>
                  </div>
                </div>
             </div>
 
-            <button onClick={() => setView('home')} className="flex items-center space-x-3 text-slate-400 font-black uppercase tracking-[0.5em] text-[10px] hover:text-slate-950 transition-colors">
+            <button onClick={() => setView('home')} className="flex items-center space-x-3 text-slate-400 font-black uppercase tracking-[0.5em] text-[10px] hover:text-slate-950 transition-colors mt-12">
               <MoveRight className="w-5 h-5 rotate-180" />
               <span>Back to Member Portal</span>
             </button>
           </div>
 
-          <div className="bg-white p-12 md:p-20 rounded-[80px] border border-slate-200 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.15)] relative sticky top-32">
+          <div className="bg-white p-8 md:p-20 rounded-[60px] md:rounded-[80px] border border-slate-200 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.15)] relative lg:sticky lg:top-32 mt-12 lg:mt-0">
             <div className="relative z-10">
-              <div className="w-20 h-20 bg-yellow-400 rounded-3xl flex items-center justify-center text-slate-950 mx-auto mb-10 shadow-xl">
-                <Users className="w-10 h-10" />
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-yellow-400 rounded-3xl flex items-center justify-center text-slate-950 mx-auto mb-10 shadow-xl">
+                <Users className="w-8 h-8 md:w-10 md:h-10" />
               </div>
-              <h3 className="text-4xl font-black mb-12 uppercase tracking-tighter text-center italic text-slate-950 underline decoration-amber-500 decoration-8 underline-offset-8 leading-none">Promoter Inquiry</h3>
+              <h3 className="text-3xl md:text-4xl font-black mb-12 uppercase tracking-tighter text-center italic text-slate-950 underline decoration-amber-500 decoration-8 underline-offset-8 leading-none">Promoter Partnership</h3>
               
               <form action="https://app.kit.com/forms/9018899/subscriptions" method="post" data-sv-form="9018899" data-uid="33bdc59b1b" className="space-y-8">
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2 font-bold">Your Full Name</label>
-                    <input name="fields[first_name]" required type="text" placeholder="John Doe / Influencer Name" className="w-full h-18 bg-slate-50 rounded-3xl px-8 outline-none focus:ring-4 ring-yellow-400/20 text-slate-900 font-bold border-2 border-slate-100 transition-all py-6" />
+                    <input name="fields[first_name]" required type="text" placeholder="John Doe / Influencer Name" className="w-full h-16 md:h-18 bg-slate-50 rounded-3xl px-8 outline-none focus:ring-4 ring-yellow-400/20 text-slate-900 font-bold border-2 border-slate-100 transition-all" />
                   </div>
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2 font-bold">Best Contact Email</label>
-                    <input name="email_address" required type="email" placeholder="partner@yourbrand.com" className="w-full h-18 bg-slate-50 rounded-3xl px-8 outline-none focus:ring-4 ring-yellow-400/20 text-slate-900 font-bold border-2 border-slate-100 transition-all py-6" />
+                    <input name="email_address" required type="email" placeholder="partner@yourbrand.com" className="w-full h-16 md:h-18 bg-slate-50 rounded-3xl px-8 outline-none focus:ring-4 ring-yellow-400/20 text-slate-900 font-bold border-2 border-slate-100 transition-all" />
                   </div>
                   <ActionButton type="submit" variant="secondary" className="w-full py-8 text-xl">
                     Register Interest
@@ -619,6 +619,7 @@ const App = () => {
   const { spotsLeft } = useMemo(() => {
     const now = new Date();
     const dayOfMonth = now.getDate();
+    // Deterministic countdown throughout the month
     const remaining = Math.max(100 - (dayOfMonth - 1) * 3, 4); 
     return { spotsLeft: remaining };
   }, []);
