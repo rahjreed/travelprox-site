@@ -27,7 +27,14 @@ import {
   Timer,
   PlayCircle,
   CheckCircle2,
-  ChevronRight
+  ChevronRight,
+  Flame,
+  Sparkles,
+  Zap,
+  Layout,
+  UserCheck,
+  Wand2,
+  Award
 } from 'lucide-react';
 
 /**
@@ -35,6 +42,7 @@ import {
  */
 const OFFICIAL_HERO_IMAGE = "https://images.travelprox.com/splash/villa.png";
 const TESTIMONIAL_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/02956ab7-33a5-4f3b-8754-ef763a308f28";
+const ROGER_PROFILE_IMAGE = "https://images.travelprox.com/callista/rahj.png";
 
 const DESTINATION_ASSETS = {
   "Florida": "https://images.travelprox.com/splash/miami.png",
@@ -44,10 +52,26 @@ const DESTINATION_ASSETS = {
 };
 
 const SAVINGS_FEED = [
-  { user: "Sarah J.", location: "Miami", saved: "$420", time: "2m ago" },
-  { user: "Michael R.", location: "Cancun", saved: "$890", time: "5m ago" },
-  { user: "Elena W.", location: "NYC", saved: "$310", time: "12m ago" },
-  { user: "David K.", location: "Vegas", saved: "$1,200", time: "18m ago" },
+  { user: "Sarah J.", location: "Miami", saved: "$420", time: "1m ago" },
+  { user: "Michael R.", location: "Cancun", saved: "$890", time: "3m ago" },
+  { user: "Elena W.", location: "NYC", saved: "$310", time: "5m ago" },
+  { user: "David K.", location: "Vegas", saved: "$1,200", time: "8m ago" },
+  { user: "Sophia L.", location: "Paris", saved: "$540", time: "12m ago" },
+  { user: "Marcus T.", location: "Dubai", saved: "$2,100", time: "15m ago" },
+  { user: "Julian M.", location: "Bali", saved: "$760", time: "18m ago" },
+  { user: "Aria V.", location: "London", saved: "$480", time: "21m ago" },
+  { user: "Chloe B.", location: "Rome", saved: "$390", time: "24m ago" },
+  { user: "Nathan S.", location: "Santorini", saved: "$1,150", time: "26m ago" },
+  { user: "Isabella G.", location: "Mykonos", saved: "$920", time: "29m ago" },
+  { user: "Liam P.", location: "Aspen", saved: "$630", time: "31m ago" },
+  { user: "Olivia H.", location: "Tulum", saved: "$410", time: "33m ago" },
+  { user: "Ethan W.", location: "Barcelona", saved: "$580", time: "35m ago" },
+  { user: "Mia C.", location: "Maldives", saved: "$2,450", time: "38m ago" },
+  { user: "Noah F.", location: "Amalfi", saved: "$1,340", time: "40m ago" },
+  { user: "Ava R.", location: "Ibiza", saved: "$720", time: "42m ago" },
+  { user: "Lucas D.", location: "Cabo", saved: "$850", time: "45m ago" },
+  { user: "Emma S.", location: "Zurich", saved: "$610", time: "47m ago" },
+  { user: "James K.", location: "Tokyo", saved: "$1,080", time: "50m ago" },
 ];
 
 /**
@@ -73,6 +97,9 @@ const customStyles = `
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .gold-glow {
+    box-shadow: 0 0 50px -10px rgba(234, 179, 8, 0.3);
   }
 `;
 
@@ -192,14 +219,23 @@ const SavingsTicker = () => {
   }, []);
 
   return (
-    <div className="bg-slate-950/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 flex items-center space-x-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex -space-x-2">
-        <div className="w-6 h-6 rounded-full bg-yellow-400 flex items-center justify-center text-[10px] font-black text-slate-950 border-2 border-slate-900">TP</div>
+    <div className="flex flex-col md:flex-row items-center gap-3">
+      {/* Social Proof Pill */}
+      <div className="bg-slate-950/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-2.5 flex items-center space-x-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="flex -space-x-2">
+          <div className="w-6 h-6 rounded-full bg-yellow-400 flex items-center justify-center text-[10px] font-black text-slate-950 border-2 border-slate-900">TP</div>
+        </div>
+        <p className="text-white text-[11px] font-medium tracking-wide">
+          <span className="text-yellow-400 font-black">{SAVINGS_FEED[index].user}</span> just saved <span className="font-black">{SAVINGS_FEED[index].saved}</span> in <span className="text-amber-400">{SAVINGS_FEED[index].location}</span>
+        </p>
+        <span className="text-white/40 text-[10px] uppercase font-black tracking-widest shrink-0">{SAVINGS_FEED[index].time}</span>
       </div>
-      <p className="text-white text-[11px] font-medium tracking-wide">
-        <span className="text-yellow-400 font-black">{SAVINGS_FEED[index].user}</span> just saved <span className="font-black">{SAVINGS_FEED[index].saved}</span> in <span className="text-amber-400">{SAVINGS_FEED[index].location}</span>
-      </p>
-      <span className="text-white/40 text-[10px] uppercase font-black tracking-widest">{SAVINGS_FEED[index].time}</span>
+
+      {/* Hot Destination Highlight */}
+      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2.5 flex items-center space-x-2 animate-pulse">
+        <Flame className="w-3 h-3 text-orange-500" />
+        <span className="text-white text-[10px] font-black uppercase tracking-widest">Trending: Tokyo</span>
+      </div>
     </div>
   );
 };
@@ -265,7 +301,7 @@ const HomeView = ({ openWaitlist, setView }) => {
             </div>
           </ScrollReveal>
 
-          {/* SEARCH COMPONENT (GHOST VERSION) */}
+          {/* SEARCH COMPONENT */}
           <ScrollReveal>
             <div className="max-w-5xl mx-auto bg-white/95 backdrop-blur-2xl rounded-[40px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] border border-white overflow-hidden">
               <div className="flex border-b border-slate-100">
@@ -355,11 +391,10 @@ const HomeView = ({ openWaitlist, setView }) => {
         </div>
       </section>
 
-      {/* VIDEO TESTIMONIAL - NEW EDITORIAL LAYOUT */}
+      {/* VIDEO TESTIMONIAL */}
       <section className="bg-slate-950 py-32 md:py-48 px-6 overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal className="text-center">
-            {/* Header Area */}
             <div className="inline-flex items-center space-x-2 px-4 py-2 mb-8 text-[10px] font-black tracking-[0.4em] uppercase bg-white/10 text-yellow-400 rounded-full border border-white/10">
               <PlayCircle className="w-4 h-4" />
               <span>Member Diaries</span>
@@ -368,7 +403,6 @@ const HomeView = ({ openWaitlist, setView }) => {
               REAL ACCESS. <br/> <span className="text-white/30 italic">REAL SAVINGS.</span>
             </h2>
 
-            {/* Feature Row - Bridging content */}
             <div className="flex flex-wrap justify-center gap-4 md:gap-12 mb-16">
               {[
                 "Wholesale Hotel Inventory",
@@ -383,7 +417,6 @@ const HomeView = ({ openWaitlist, setView }) => {
               ))}
             </div>
 
-            {/* Video Centered Centerpiece */}
             <div className="relative max-w-5xl mx-auto mb-16 group">
               <div className="absolute -inset-10 bg-yellow-400/10 blur-[100px] rounded-full animate-pulse" />
               <div className="relative aspect-video w-full rounded-[40px] md:rounded-[64px] overflow-hidden border-[8px] md:border-[16px] border-white/5 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] transition-transform duration-700 group-hover:scale-[1.01]">
@@ -413,13 +446,8 @@ const HomeView = ({ openWaitlist, setView }) => {
               <span className="font-black text-slate-950 text-3xl tracking-tighter uppercase">TRAVELPRO<span className="text-amber-600">X</span></span>
             </div>
             <p className="text-slate-500 font-medium max-w-md leading-relaxed mb-10 text-lg">
-              The world's leading private travel ecosystem. We combine global group volume to deliver net-wholesale rates directly to our members.
+              Hosting the world's leading private travel ecosystem. We combine global group volume to deliver net-wholesale rates directly to our members.
             </p>
-            <div className="flex space-x-4">
-              <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 hover:text-yellow-600 cursor-pointer transition-colors"><Globe className="w-6 h-6" /></div>
-              <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 hover:text-yellow-600 cursor-pointer transition-colors"><Star className="w-6 h-6" /></div>
-              <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 hover:text-yellow-600 cursor-pointer transition-colors"><Navigation className="w-6 h-6" /></div>
-            </div>
           </div>
           <div>
             <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 mb-8">Navigation</h4>
@@ -444,11 +472,6 @@ const HomeView = ({ openWaitlist, setView }) => {
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]">
             © 2026 TRAVEL PRO X & CALLISTA DIGITAL • EST. 2014
           </p>
-          <div className="flex space-x-8">
-            <button className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-slate-950">Terms</button>
-            <button className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-slate-950">Privacy</button>
-            <button className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-slate-950">Disclosures</button>
-          </div>
         </div>
       </footer>
     </div>
@@ -459,59 +482,129 @@ const AgencyView = ({ setView }) => (
   <div className="bg-slate-50 min-h-screen text-slate-900 overflow-x-hidden">
     <main className="pt-48 pb-32 px-6 max-w-7xl mx-auto">
       <ScrollReveal>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-start mb-32">
+          <div className="relative">
             <div className="inline-flex items-center space-x-2 px-5 py-2.5 mb-10 text-[10px] font-black tracking-[0.5em] uppercase bg-amber-100 text-amber-700 rounded-full">
-              <TrendingUp className="w-4 h-4" />
-              <span>B2B INFRASTRUCTURE</span>
+              <Zap className="w-4 h-4" />
+              <span>Premium Promoter Program</span>
             </div>
-            <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mb-12">
+            <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter uppercase leading-[0.85] mb-12">
               BUILD YOUR <br/> TRAVEL <br/> <span className="text-yellow-500 italic">EMPIRE.</span>
             </h1>
-            <p className="text-2xl text-slate-500 font-medium leading-relaxed mb-16 max-w-xl">
-              We provide the tech. You provide the community. Scalable booking portals designed for travel influencers, agents, and scaling promoters.
+            <p className="text-2xl text-slate-600 font-medium leading-relaxed mb-12 max-w-xl">
+              Join our company as a <span className="text-slate-950 font-black">Premium Travel Club Promoter</span> by becoming a Platinum Member and Promoter with <span className="text-amber-600 font-black">Travorium</span>.
             </p>
-            <div className="grid grid-cols-2 gap-8 mb-16">
-               <div>
-                  <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.3em] mb-3">01. Global Feed</h4>
-                  <p className="text-slate-600 font-medium">Real-time GDS and Wholesale feeds integrated into your brand.</p>
+            
+            <div className="space-y-8 mb-16">
+               <div className="flex items-start space-x-6 bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm transition-transform hover:scale-[1.02]">
+                  <div className="bg-amber-50 p-4 rounded-2xl text-amber-600 shrink-0"><Sparkles className="w-8 h-8" /></div>
+                  <div>
+                    <h4 className="text-xl font-black uppercase tracking-tighter mb-2">Up to 80% Off Vacations</h4>
+                    <p className="text-slate-500 font-medium leading-relaxed">Travorium Platinum members receive industry-only vacation benefits and access to wholesale inventory at the deepest possible discounts.</p>
+                  </div>
                </div>
-               <div>
-                  <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.3em] mb-3">02. Auto-Funnels</h4>
-                  <p className="text-slate-600 font-medium">Capture leads and manage bookings without lifting a finger.</p>
+               
+               {/* NEW OBVIOUS WEB DESIGN OFFER CARD */}
+               <div className="relative pt-12">
+                 {/* Floating Bubble Image */}
+                 <div className="absolute top-0 right-10 md:-right-8 z-20">
+                    <div className="relative animate-float">
+                      <div className="w-32 h-32 md:w-44 md:h-44 rounded-full border-[6px] border-white shadow-2xl overflow-hidden gold-glow">
+                        <img src={ROGER_PROFILE_IMAGE} className="w-full h-full object-cover" alt="Roger Reed" />
+                      </div>
+                      <div className="absolute -bottom-2 right-4 bg-yellow-400 p-3 rounded-2xl shadow-xl border-4 border-white">
+                        <Wand2 className="w-6 h-6 text-slate-950" />
+                      </div>
+                    </div>
+                 </div>
+
+                 <div className="bg-slate-950 p-10 md:p-14 rounded-[56px] shadow-3xl border-2 border-yellow-400/20 relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-400/5 to-transparent pointer-events-none" />
+                    
+                    <div className="relative z-10 pr-20 md:pr-0">
+                      <div className="inline-flex items-center space-x-2 px-4 py-1.5 mb-6 text-[10px] font-black tracking-[0.3em] uppercase bg-yellow-400 text-slate-950 rounded-full">
+                        <Award className="w-3.5 h-3.5" />
+                        <span>Exclusive Team Bonus</span>
+                      </div>
+                      
+                      <h3 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-6 leading-none italic">
+                        Bespoke Web <br/> Design <span className="text-yellow-400">Included.</span>
+                      </h3>
+                      
+                      <p className="text-white/80 font-bold text-lg mb-8 leading-relaxed max-w-md">
+                        As your team leader, <span className="text-white">Roger Reed</span> will personally build your professional online presence.
+                      </p>
+
+                      <div className="grid grid-cols-1 gap-4 mb-10">
+                        <div className="flex items-center space-x-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                          <CheckCircle2 className="w-6 h-6 text-yellow-400" />
+                          <span className="text-white font-black uppercase tracking-widest text-xs">16 Years Expert Graphic Design</span>
+                        </div>
+                        <div className="flex items-center space-x-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                          <CheckCircle2 className="w-6 h-6 text-yellow-400" />
+                          <span className="text-white font-black uppercase tracking-widest text-xs">Custom High-Conversion Capture Pages</span>
+                        </div>
+                        <div className="flex items-center space-x-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                          <CheckCircle2 className="w-6 h-6 text-yellow-400" />
+                          <span className="text-white font-black uppercase tracking-widest text-xs">Full Tech System Support</span>
+                        </div>
+                      </div>
+
+                      <div className="bg-white/10 rounded-3xl p-6 border-l-8 border-yellow-400">
+                        <p className="text-white/60 text-xs uppercase font-black tracking-widest mb-1">Standard Industry Value</p>
+                        <p className="text-3xl font-black text-white tracking-tighter">$1,000+ <span className="text-yellow-400 line-through text-xl opacity-50 ml-2">COST</span> <span className="text-xs bg-white text-slate-950 px-3 py-1 rounded-full ml-3 italic">FREE FOR TEAM</span></p>
+                      </div>
+                    </div>
+                 </div>
                </div>
             </div>
+
             <button onClick={() => setView('home')} className="flex items-center space-x-3 text-slate-400 font-black uppercase tracking-[0.5em] text-[10px] hover:text-slate-950 transition-colors">
               <MoveRight className="w-5 h-5 rotate-180" />
               <span>Back to Member Portal</span>
             </button>
           </div>
-          <div className="bg-white p-12 md:p-20 rounded-[80px] border border-slate-200 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.15)] relative">
+
+          <div className="bg-white p-12 md:p-20 rounded-[80px] border border-slate-200 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.15)] relative sticky top-32">
             <div className="relative z-10">
               <div className="w-20 h-20 bg-yellow-400 rounded-3xl flex items-center justify-center text-slate-950 mx-auto mb-10 shadow-xl">
-                <Code className="w-10 h-10" />
+                <Users className="w-10 h-10" />
               </div>
-              <h3 className="text-4xl font-black mb-12 uppercase tracking-tighter text-center italic text-slate-950 underline decoration-amber-500 decoration-8 underline-offset-8">Promoter Inquiry</h3>
+              <h3 className="text-4xl font-black mb-12 uppercase tracking-tighter text-center italic text-slate-950 underline decoration-amber-500 decoration-8 underline-offset-8 leading-none">Promoter Inquiry</h3>
               
               <form action="https://app.kit.com/forms/9018899/subscriptions" method="post" data-sv-form="9018899" data-uid="33bdc59b1b" className="space-y-8">
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2">Professional Identity</label>
-                    <input name="fields[first_name]" required type="text" placeholder="John Doe / Agency Name" className="w-full h-18 bg-slate-50 rounded-3xl px-8 outline-none focus:ring-4 ring-yellow-400/20 text-slate-900 font-bold border-2 border-slate-100 transition-all py-6" />
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2 font-bold">Your Full Name</label>
+                    <input name="fields[first_name]" required type="text" placeholder="John Doe / Influencer Name" className="w-full h-18 bg-slate-50 rounded-3xl px-8 outline-none focus:ring-4 ring-yellow-400/20 text-slate-900 font-bold border-2 border-slate-100 transition-all py-6" />
                   </div>
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2">Corporate Email</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2 font-bold">Best Contact Email</label>
                     <input name="email_address" required type="email" placeholder="partner@yourbrand.com" className="w-full h-18 bg-slate-50 rounded-3xl px-8 outline-none focus:ring-4 ring-yellow-400/20 text-slate-900 font-bold border-2 border-slate-100 transition-all py-6" />
                   </div>
                   <ActionButton type="submit" variant="secondary" className="w-full py-8 text-xl">
                     Register Interest
                   </ActionButton>
-                  <p className="text-center text-[10px] font-black text-slate-300 uppercase tracking-widest">Confidential Review • travelprox.com/b2b</p>
+                  <div className="text-center space-y-4">
+                    <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-relaxed">
+                      Platinum Travorium Enrollment Review <br/> Bespoke Page Included • travelprox.com
+                    </p>
+                    <div className="flex items-center justify-center space-x-2 text-green-600">
+                      <ShieldCheck className="w-4 h-4" />
+                      <span className="text-[9px] font-black uppercase tracking-widest">Confidential Team Onboarding</span>
+                    </div>
+                  </div>
               </form>
             </div>
           </div>
         </div>
       </ScrollReveal>
     </main>
+    <footer className="py-20 border-t border-slate-200 text-center px-6 bg-white">
+        <button onClick={() => setView('home')} className="mb-8 text-slate-400 hover:text-slate-950 transition-colors uppercase font-black text-[10px] tracking-[0.5em]">Return to Global Comparison Portal</button>
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">
+          © 2026 TRAVEL PRO X & CALLISTA DIGITAL • EST. 2014
+        </p>
+    </footer>
   </div>
 );
 
@@ -526,7 +619,6 @@ const App = () => {
   const { spotsLeft } = useMemo(() => {
     const now = new Date();
     const dayOfMonth = now.getDate();
-    // Deterministic countdown throughout the month
     const remaining = Math.max(100 - (dayOfMonth - 1) * 3, 4); 
     return { spotsLeft: remaining };
   }, []);
