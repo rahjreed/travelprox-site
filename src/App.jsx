@@ -36,7 +36,8 @@ import {
   Wand2,
   Award,
   Gift,
-  Ticket
+  Ticket,
+  MessageSquare
 } from 'lucide-react';
 
 /**
@@ -44,9 +45,10 @@ import {
  */
 const OFFICIAL_HERO_IMAGE = "https://images.travelprox.com/splash/villa.png";
 const TESTIMONIAL_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/02956ab7-33a5-4f3b-8754-ef763a308f28";
-const PERKS_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/03a48a31-4610-4d41-b4fc-72f8f4a84af2";
+const PERKS_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/43d40616-b9b4-4efa-b54f-22d08d420e09";
 const ROGER_PROFILE_IMAGE = "https://images.travelprox.com/callista/rahj.png";
 const TRAVORIUM_ENROLL_URL = "https://travorium.com/enroll.php?sponsor=376362";
+const ROGER_PHONE = "765.228.2839";
 
 const DESTINATION_ASSETS = {
   "Florida": "https://images.travelprox.com/splash/miami.png",
@@ -538,7 +540,7 @@ const AgencyView = ({ setView }) => (
                         As your team leader, <span className="text-white">Roger Reed</span> will personally build your professional online presence.
                       </p>
 
-                      <div className="grid grid-cols-1 gap-4 mb-10">
+                      <div className="grid grid-cols-1 gap-4 mb-6">
                         <div className="flex items-center space-x-4 bg-white/5 p-4 rounded-2xl border border-white/10">
                           <CheckCircle2 className="w-6 h-6 text-yellow-400 shrink-0" />
                           <span className="text-white font-black uppercase tracking-widest text-[10px] md:text-xs">16 Years Expert Graphic Design</span>
@@ -550,6 +552,15 @@ const AgencyView = ({ setView }) => (
                         <div className="flex items-center space-x-4 bg-white/5 p-4 rounded-2xl border border-white/10">
                           <CheckCircle2 className="w-6 h-6 text-yellow-400 shrink-0" />
                           <span className="text-white font-black uppercase tracking-widest text-[10px] md:text-xs">Full Tech System Support</span>
+                        </div>
+                      </div>
+
+                      {/* TEXT CONTACT OPTION */}
+                      <div className="mb-10 p-4 bg-white/5 border border-white/10 rounded-2xl flex items-center space-x-4">
+                        <MessageSquare className="w-6 h-6 text-yellow-400" />
+                        <div className="flex flex-col">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Questions? Text Roger</span>
+                          <span className="text-lg font-black text-white">{ROGER_PHONE}</span>
                         </div>
                       </div>
 
@@ -619,15 +630,15 @@ const PresentationView = ({ setView }) => {
 
   return (
     <div className="bg-slate-950 min-h-screen text-white overflow-x-hidden selection:bg-yellow-400 selection:text-slate-950">
-      <main className="pt-24 pb-32">
-        <ScrollReveal className="text-center">
+      <main className="pt-24 md:pt-32 pb-32">
+        <ScrollReveal className="text-center px-0">
           
           {/* MINIMAL SUBTLE BONUS NOTIFICATION */}
           <div className="max-w-xl mx-auto px-6 mb-8">
             <div className="bg-yellow-400/10 border border-yellow-400/20 py-2 px-6 rounded-full inline-flex items-center space-x-3">
               <Gift className="w-4 h-4 text-yellow-400" />
               <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-yellow-400">
-                Enroll at Platinum level in {currentMonth} for a Free Vegas Trip
+                Platinum Exclusive: Enroll in {currentMonth} for a Free Vegas Trip
               </span>
             </div>
           </div>
@@ -636,16 +647,16 @@ const PresentationView = ({ setView }) => {
             <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none mb-4 italic">
               INSIDE THE <span className="text-yellow-400">VAULT.</span>
             </h1>
-            <p className="text-sm md:text-lg text-white/50 font-bold uppercase tracking-widest leading-relaxed">
-              Deep wholesale hotel savings & private rates revealed.
+            <p className="text-xs md:text-lg text-white/50 font-bold uppercase tracking-widest leading-relaxed max-w-2xl mx-auto">
+              Private hotel savings and deeply discounted wholesale rates reveal.
             </p>
           </div>
 
-          {/* FULL FRAME VIDEO CONTAINER */}
-          <div className="w-full relative group bg-black">
+          {/* FULL WIDTH MOBILE VIDEO CONTAINER */}
+          <div className="w-full relative group">
             <div className="absolute -inset-2 bg-yellow-400/5 blur-[100px] rounded-full pointer-events-none" />
-            <div className="max-w-[1400px] mx-auto">
-                <div className="relative aspect-video w-full md:rounded-[40px] overflow-hidden md:border-[12px] border-white/5 shadow-2xl">
+            <div className="max-w-[1400px] mx-auto w-full px-0 md:px-6">
+                <div className="relative aspect-video w-full md:rounded-[40px] overflow-hidden md:border-[12px] border-white/5 shadow-2xl bg-black">
                 <iframe 
                     src={PERKS_VIDEO_URL} 
                     className="w-full h-full"
@@ -663,22 +674,30 @@ const PresentationView = ({ setView }) => {
               href={TRAVORIUM_ENROLL_URL} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6 bg-white text-slate-950 px-10 py-8 rounded-[40px] text-xl md:text-2xl font-black uppercase tracking-tighter hover:scale-[1.02] transition-all shadow-[0_20px_60px_-15px_rgba(255,255,255,0.15)]"
+              className="group flex flex-col items-center justify-center bg-white text-slate-950 px-8 py-8 rounded-[40px] text-xl md:text-2xl font-black uppercase tracking-tighter hover:scale-[1.02] transition-all shadow-[0_20px_60px_-15px_rgba(255,255,255,0.15)] w-full"
             >
-              <span>Join the team, get a membership</span>
-              <div className="bg-slate-950 p-2 rounded-full text-yellow-400 group-hover:rotate-45 transition-transform">
-                <ArrowUpRight className="w-6 h-6 md:w-8 md:h-8" />
+              <div className="flex items-center space-x-4">
+                <span>Join the team, get a membership</span>
+                <div className="bg-slate-950 p-2 rounded-full text-yellow-400 group-hover:rotate-45 transition-transform shrink-0">
+                  <ArrowUpRight className="w-6 h-6 md:w-8 md:h-8" />
+                </div>
               </div>
             </a>
+
+            {/* TEXT CONTACT FOR QUESTIONS */}
+            <div className="mt-8 flex flex-col items-center">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-2">Have Questions? Text Roger Directly</p>
+              <a href={`tel:${ROGER_PHONE}`} className="text-xl font-black text-yellow-400 hover:text-yellow-500 transition-colors">{ROGER_PHONE}</a>
+            </div>
             
             <div className="mt-12 flex justify-center items-center space-x-8 opacity-40">
                 <div className="flex items-center space-x-2">
                     <ShieldCheck className="w-4 h-4" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Wholesale Access</span>
+                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest">Wholesale Access</span>
                 </div>
                 <div className="flex items-center space-x-2">
                     <UserCheck className="w-4 h-4" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Direct Enrollment</span>
+                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest">Direct Enrollment</span>
                 </div>
             </div>
 
@@ -688,6 +707,11 @@ const PresentationView = ({ setView }) => {
           </div>
         </ScrollReveal>
       </main>
+      <footer className="py-20 border-t border-white/5 text-center px-6">
+          <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest text-center">
+            © 2026 TRAVEL PRO X & CALLISTA DIGITAL • EST. 2014
+          </p>
+      </footer>
     </div>
   );
 };
