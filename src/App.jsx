@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+    import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   Globe,
   Camera,
@@ -34,7 +34,9 @@ import {
   Layout,
   UserCheck,
   Wand2,
-  Award
+  Award,
+  Gift,
+  Ticket
 } from 'lucide-react';
 
 /**
@@ -42,7 +44,9 @@ import {
  */
 const OFFICIAL_HERO_IMAGE = "https://images.travelprox.com/splash/villa.png";
 const TESTIMONIAL_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/02956ab7-33a5-4f3b-8754-ef763a308f28";
+const PERKS_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/03a48a31-4610-4d41-b4fc-72f8f4a84af2";
 const ROGER_PROFILE_IMAGE = "https://images.travelprox.com/callista/rahj.png";
+const TRAVORIUM_ENROLL_URL = "https://travorium.com/enroll.php?sponsor=376362";
 
 const DESTINATION_ASSETS = {
   "Florida": "https://images.travelprox.com/splash/miami.png",
@@ -254,7 +258,7 @@ const Header = ({ setView }) => (
         <span className="font-black text-slate-950 tracking-tighter text-xl uppercase">TRAVELPRO<span className="text-amber-600 text-2xl italic">X</span></span>
       </div>
       <div className="hidden lg:flex items-center space-x-8">
-        <button onClick={() => setView('home')} className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-950 transition-colors">Member Perks</button>
+        <button onClick={() => setView('presentation')} className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-950 transition-colors">Member Perks</button>
         <button onClick={() => setView('home')} className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-950 transition-colors">Public Search</button>
         <div className="w-[1px] h-4 bg-slate-200 mx-2" />
         <button onClick={() => setView('agency')} className="text-[10px] font-black uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors px-4 py-2 bg-amber-50 rounded-full border border-amber-100">Promoter Hub</button>
@@ -454,7 +458,7 @@ const HomeView = ({ openWaitlist, setView }) => {
             <ul className="space-y-6">
               <li><button onClick={() => setView('home')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Global Search</button></li>
               <li><button onClick={() => setView('agency')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Promoter Hub</button></li>
-              <li><button onClick={openWaitlist} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Verify Membership</button></li>
+              <li><button onClick={() => setView('presentation')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Member Rewards & Perks</button></li>
             </ul>
           </div>
           <div>
@@ -504,9 +508,8 @@ const AgencyView = ({ setView }) => (
                   </div>
                </div>
                
-               {/* IMPROVED WEB DESIGN OFFER CARD - MOBILE OPTIMIZED */}
+               {/* WEB DESIGN OFFER CARD */}
                <div className="relative pt-16 md:pt-12">
-                 {/* Floating Bubble Image - Positioned for better mobile flow */}
                  <div className="absolute top-0 right-4 md:-right-8 z-20">
                     <div className="relative animate-float">
                       <div className="w-28 h-28 md:w-44 md:h-44 rounded-full border-[4px] md:border-[6px] border-white shadow-2xl overflow-hidden gold-glow">
@@ -572,6 +575,7 @@ const AgencyView = ({ setView }) => (
               </div>
               <h3 className="text-3xl md:text-4xl font-black mb-12 uppercase tracking-tighter text-center italic text-slate-950 underline decoration-amber-500 decoration-8 underline-offset-8 leading-none">Promoter Partnership</h3>
               
+              {/* Note: In Kit dashboard, set redirect URL to the #presentation view of this app */}
               <form action="https://app.kit.com/forms/9018899/subscriptions" method="post" data-sv-form="9018899" data-uid="33bdc59b1b" className="space-y-8">
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2 font-bold">Your Full Name</label>
@@ -609,6 +613,102 @@ const AgencyView = ({ setView }) => (
 );
 
 /**
+ * PRESENTATION VIEW (NEW)
+ */
+const PresentationView = ({ setView }) => {
+  const currentMonth = new Date().toLocaleString('default', { month: 'long' });
+
+  return (
+    <div className="bg-slate-950 min-h-screen text-white overflow-x-hidden selection:bg-yellow-400 selection:text-slate-950">
+      <main className="pt-40 pb-32 px-6 max-w-5xl mx-auto">
+        <ScrollReveal className="text-center">
+          {/* URGENGY BANNER */}
+          <div className="bg-yellow-400 text-slate-950 p-4 md:p-6 rounded-[32px] mb-12 flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6 gold-glow border-4 border-white animate-pulse">
+            <Gift className="w-8 h-8 animate-bounce" />
+            <p className="text-lg md:text-2xl font-black uppercase tracking-tighter italic">
+              PLATINUM BONUS: Enroll in {currentMonth} for a Free Vegas Trip!
+            </p>
+          </div>
+
+          <div className="mb-12">
+            <div className="inline-flex items-center space-x-2 px-5 py-2.5 mb-8 text-[10px] font-black tracking-[0.5em] uppercase bg-white/10 text-yellow-400 rounded-full border border-white/10">
+              <Star className="w-4 h-4" />
+              <span>The Inside Look</span>
+            </div>
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-[0.8] mb-8 italic">
+              DEEP WHOLESALE <br/> <span className="text-white/30">UNLOCKED.</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-white/60 font-medium leading-relaxed max-w-3xl mx-auto mb-16">
+              This video details the private hotel savings and net-wholesale rates that Travorium Platinum members use to travel the world for less.
+            </p>
+          </div>
+
+          {/* VIDEO CONTAINER */}
+          <div className="relative mb-20 group">
+            <div className="absolute -inset-10 bg-yellow-400/10 blur-[120px] rounded-full" />
+            <div className="relative aspect-video w-full rounded-[48px] md:rounded-[64px] overflow-hidden border-[8px] md:border-[20px] border-white/5 shadow-3xl">
+              <iframe 
+                src={PERKS_VIDEO_URL} 
+                className="w-full h-full"
+                loading="lazy" 
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
+                allowFullScreen
+              />
+            </div>
+          </div>
+
+          {/* CONVERSION AREA */}
+          <div className="bg-white p-10 md:p-16 rounded-[60px] text-slate-950 shadow-2xl relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/10 rounded-full blur-3xl -translate-y-32 translate-x-32" />
+             <div className="relative z-10">
+                <div className="w-20 h-20 bg-slate-950 rounded-3xl flex items-center justify-center text-yellow-400 mx-auto mb-10">
+                   <Ticket className="w-10 h-10" />
+                </div>
+                <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tighter italic">Ready to travel <br/> like a pro?</h3>
+                <p className="text-slate-500 font-bold text-lg md:text-xl mb-12 max-w-xl mx-auto">
+                  Click the button below to join the team as a Platinum member and start accessing these private wholesale rates today.
+                </p>
+                <a 
+                  href={TRAVORIUM_ENROLL_URL} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-full md:w-auto bg-slate-950 text-white px-12 py-8 rounded-[32px] text-xl md:text-2xl font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl group"
+                >
+                  Join the team, get a membership
+                  <ArrowUpRight className="ml-4 w-8 h-8 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-yellow-400" />
+                </a>
+                <div className="mt-10 flex flex-wrap justify-center gap-6">
+                   <div className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                     <CheckCircle2 className="w-4 h-4 text-green-600" />
+                     <span>No Contracts</span>
+                   </div>
+                   <div className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                     <CheckCircle2 className="w-4 h-4 text-green-600" />
+                     <span>Global Access</span>
+                   </div>
+                   <div className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                     <CheckCircle2 className="w-4 h-4 text-green-600" />
+                     <span>Vegas Trip Eligible</span>
+                   </div>
+                </div>
+             </div>
+          </div>
+
+          <button onClick={() => setView('home')} className="mt-20 text-white/40 hover:text-white font-black uppercase tracking-[0.5em] text-xs transition-colors">
+            Back to Global Search
+          </button>
+        </ScrollReveal>
+      </main>
+      <footer className="py-20 border-t border-white/5 text-center px-6">
+          <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest text-center">
+            © 2026 TRAVEL PRO X & CALLISTA DIGITAL • EST. 2014
+          </p>
+      </footer>
+    </div>
+  );
+};
+
+/**
  * APP ENTRY POINT
  */
 const App = () => {
@@ -619,7 +719,6 @@ const App = () => {
   const { spotsLeft } = useMemo(() => {
     const now = new Date();
     const dayOfMonth = now.getDate();
-    // Deterministic countdown throughout the month
     const remaining = Math.max(100 - (dayOfMonth - 1) * 3, 4); 
     return { spotsLeft: remaining };
   }, []);
@@ -641,13 +740,19 @@ const App = () => {
       
       <Header setView={setView} />
       
-      {view === 'home' ? (
+      {view === 'home' && (
         <HomeView 
           setView={setView}
           openWaitlist={() => setIsWaitlistOpen(true)}
         />
-      ) : (
+      )}
+
+      {view === 'agency' && (
         <AgencyView setView={setView} />
+      )}
+
+      {view === 'presentation' && (
+        <PresentationView setView={setView} />
       )}
 
       {/* Waitlist Modal */}
