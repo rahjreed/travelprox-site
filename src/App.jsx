@@ -790,20 +790,20 @@ const HomeView = ({ openWaitlist, setView }) => {
               <SavingsTicker />
               
               <h1 className="text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem] xl:text-[13rem] font-black text-white tracking-tighter leading-[0.8] uppercase drop-shadow-[0_10px_50px_rgba(0,0,0,0.65)]">
-                THE TRAVEL <br/> 
+                TRAVEL MARKETING <br/> 
                 <span className="bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent italic drop-shadow-[0_15px_30px_rgba(245,158,11,0.25)]">
-                  QUIZ...
+                  HUB.
                 </span>
               </h1>
               
               <p className="text-white text-base sm:text-xl md:text-2xl font-bold max-w-3xl mx-auto leading-relaxed drop-shadow-lg opacity-95">
-                Stop paying retail brokers. Our private club members access "Unlisted" wholesale contracts locked down by verified travel networks.
+                Free creator tools, practical marketing training, and lead-generation resources for travel agents, creators, and independent travel marketers.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 max-w-md sm:max-w-none mx-auto">
-              <ActionButton variant="primary" className="w-full sm:w-auto px-12 py-6 text-base tracking-widest" onClick={() => setIsQuizOpen(true)}>
-                Scan Travel Profile
+              <ActionButton variant="primary" className="w-full sm:w-auto px-12 py-6 text-base tracking-widest" onClick={() => window.location.assign("/marketing-hub/")}>
+                Explore Free Marketing Hub
               </ActionButton>
               <button 
                 onClick={() => {
@@ -922,53 +922,6 @@ const HomeView = ({ openWaitlist, setView }) => {
               </div>
             </ScrollReveal>
           ))}
-        </div>
-      </section>
-
-      {/* DOCUMENTED MEMBER DIARIES */}
-      <section className="bg-slate-950 py-24 sm:py-36 px-4 sm:px-6 overflow-hidden">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal className="text-center">
-            <div className="inline-flex items-center space-x-2.5 px-5 py-2.5 mb-8 text-[10px] font-black tracking-[0.4em] uppercase bg-white/5 text-amber-400 rounded-full border border-white/10">
-              <PlayCircle className="w-4 h-4 animate-spin-slow" />
-              <span>Real Live Walkthrough Diaries</span>
-            </div>
-            
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tighter uppercase leading-[0.9] mb-12">
-              RAW MEMBER FEED. <br/> <span className="text-white/30 italic">UNCOMPENSATED PROOF.</span>
-            </h2>
-
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-6 mb-16">
-              {[
-                "Net-Wholesale Hotel Inventory",
-                "Flight Consolidator Clearances",
-                "Deep Cruise Access Keys",
-                "Zero Retail Surcharges"
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center space-x-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl shadow-inner">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span className="text-white/90 font-bold text-xs uppercase tracking-wider">{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="relative max-w-4xl mx-auto mb-16 group">
-              <div className="absolute -inset-10 bg-amber-400/10 blur-[100px] rounded-full animate-pulse pointer-events-none" />
-              <div className="relative aspect-video w-full rounded-[32px] sm:rounded-[48px] overflow-hidden border-[6px] sm:border-[12px] border-white/5 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] transition-all duration-700 group-hover:scale-[1.005]">
-                <iframe 
-                  src={TESTIMONIAL_VIDEO_URL} 
-                  className="w-full h-full"
-                  loading="lazy" 
-                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
-                  allowFullScreen
-                />
-              </div>
-            </div>
-
-            <ActionButton variant="primary" className="mx-auto px-12 py-5 text-base tracking-widest" onClick={() => setIsQuizOpen(true)}>
-              Start Live Verification Process <MoveRight className="ml-3 w-5 h-5" />
-            </ActionButton>
-          </ScrollReveal>
         </div>
       </section>
 
