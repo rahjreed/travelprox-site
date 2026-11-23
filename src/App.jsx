@@ -834,22 +834,8 @@ const App = () => {
       )}
 
       {/* Shared Modals */}
-      <WaitlistModal isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
 
-      {/* Sticky High-Urgency Floating Hotspot */}
-      <div 
-        onClick={() => setIsWaitlistOpen(true)}
-        className="fixed bottom-6 right-6 z-[120] bg-white border border-slate-200/60 p-1.5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex items-center space-x-1 cursor-pointer hover:scale-105 active:scale-95 transition-all group"
-      >
-        <div className="bg-slate-950 px-5 py-3 rounded-full flex items-center space-x-2.5 shadow-lg">
-           <Timer className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
-           <span className="text-[11px] font-black text-white uppercase tracking-widest">{spotsLeft} Vacancies Left</span>
-        </div>
-        <div className="px-3.5 py-3 hidden md:flex items-center space-x-1.5">
-           <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Secure Seat</span>
-           <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:translate-x-1 transition-transform" />
-        </div>
-      </div>
+
     </div>
   );
 };
