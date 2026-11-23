@@ -208,335 +208,50 @@ const ActionButton = ({ onClick, children, className = "", variant = "primary", 
 /**
  * TRAVELER PERSONA QUIZ & DIAGNOSTIC MODAL
  */
-const TravelerQuiz = ({ isOpen, onClose, setView }) => {
-  const [step, setStep] = useState(1); // Steps 1 to 5, 'lead', 'results'
-  const [answers, setAnswers] = useState({ q1: null, q2: null, q3: null, q4: null, q5: null });
-  const [leadName, setLeadName] = useState('');
-  const [leadEmail, setLeadEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-
+const TravelerQuiz = ({ isOpen, onClose }) => {
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
   if (!isOpen) return null;
-
-  const QUESTIONS = [
-    {
-      id: 'q1',
-      title: "Where is your family planning to vacation next?",
-      options: [
-        { key: 'A', text: "Orlando / Theme Parks" },
-        { key: 'B', text: "Las Vegas / Entertainment Hubs" },
-        { key: 'C', text: "Tropical Beach / All-Inclusive Resorts" },
-        { key: 'D', text: "Major City Exploration / Mountain Getaways" }
-      ]
-    },
-    {
-      id: 'q2',
-      title: "How many times a year do you typically travel?",
-      options: [
-        { key: 'A', text: "Only Once (1 trip a year)", value: 1 },
-        { key: 'B', text: "Seasonal Jetsetter (2-3 trips a year)", value: 2.5 },
-        { key: 'C', text: "Regular Voyager (4-5 trips a year)", value: 4.5 },
-        { key: 'D', text: "Constant Explorer (6+ trips a year)", value: 6 }
-      ]
-    },
-    {
-      id: 'q3',
-      title: "On average, how many days do you stay on a single vacation?",
-      options: [
-        { key: 'A', text: "Quick Weekend (2-3 Days)", value: 2.5 },
-        { key: 'B', text: "Standard Getaway (4-5 Days)", value: 4.5 },
-        { key: 'C', text: "Full Week (6-7 Days)", value: 6.5 },
-        { key: 'D', text: "Extended Luxury (8+ Days)", value: 9 }
-      ]
-    },
-    {
-      id: 'q4',
-      title: "What is your typical nightly budget for a quality resort or hotel stay?",
-      options: [
-        { key: 'A', text: "Value Conscious ($100 - $180 / night)", value: 140 },
-        { key: 'B', text: "Standard Comfort ($180 - $280 / night)", value: 230 },
-        { key: 'C', text: "Premium Luxury ($280 - $450 / night)", value: 365 },
-        { key: 'D', text: "Elite Executive ($450+ / night)", value: 550 }
-      ]
-    },
-    {
-      id: 'q5',
-      title: "What is your primary objective right now?",
-      options: [
-        { key: 'A', text: "Just looking to save maximum money on my own personal vacations." },
-        { key: 'B', text: "I want to save money, but I’m also open to making a recurring income promoting travel." },
-        { key: 'C', text: "I want to experience luxury VIP destinations without paying retail." },
-        { key: 'D', text: "I am looking to completely replace my current income with a travel business." }
-      ]
-    }
+  const questions = [
+    { title: "What best describes your travel business right now?", options: ["I'm just getting started", "I'm active but need more leads", "I have leads but struggle with follow-up", "I'm growing and want better systems"] },
+    { title: "How often are you posting travel-related content?", options: ["Rarely or never", "A few times a month", "A few times a week", "Almost every day"] },
+    { title: "What happens when someone asks about your travel offer?", options: ["I send a message and hope they reply", "I share a link but don't track interest", "I collect contact information manually", "I have a repeatable follow-up process"] },
+    { title: "Which marketing task feels hardest?", options: ["Knowing what to post", "Recording confident videos", "Finding and capturing interested people", "Following up consistently"] },
+    { title: "If you improved one thing this month, what would it be?", options: ["Create content more consistently", "Make better videos", "Build a lead-generating page", "Organize my follow-up system"] }
   ];
-
-  const currentQuestion = QUESTIONS[step - 1];
-
-  const handleOptionSelect = (option) => {
-    setAnswers(prev => ({ ...prev, [`q${step}`]: option }));
-    if (step < 5) {
-      setTimeout(() => setStep(prev => prev + 1), 250);
-    } else {
-      setTimeout(() => setStep('lead'), 250);
-    }
-  };
-
-  const handleLeadSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const formData = new FormData();
-      formData.append('email_address', leadEmail);
-      formData.append('fields[first_name]', leadName);
-      
-      await fetch("https://app.kit.com/forms/9018875/subscriptions", {
-        method: "POST",
-        body: formData,
-        mode: 'no-cors'
-      });
-      setToastMessage("Wholesale Diagnostic Verified & Synced!");
-    } catch (err) {
-      setToastMessage("Local Lead Processed Securely.");
-    }
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setStep('results');
-    }, 1200);
-  };
-
-  // Mathematical calculations for retail leakage
-  const q2Multiplier = answers.q2?.value || 1.5;
-  const q3Multiplier = answers.q3?.value || 4.5;
-  const q4Base = answers.q4?.value || 230;
-  const calculatedLoss = Math.round((q4Base * q3Multiplier * q2Multiplier) * 0.45);
-
-  const q5Key = answers.q5?.key || 'A';
-  const isVictim = q5Key === 'A' || q5Key === 'C';
-  const personaTitle = isVictim ? "The Retail Victim" : "The Hidden Empire Builder";
-  const personaDesc = isVictim 
-    ? "You are currently traveling but burning massive amounts of capital by unknowingly fueling public search engine markups."
-    : "You are primed to turn standard vacation overhead into an automated, highly-scalable recurring revenue system.";
-
-  return (
-    <div className="fixed inset-0 z-[200] flex justify-center items-start overflow-y-auto bg-slate-950/90 backdrop-blur-xl p-3 sm:p-6 md:p-8 py-8 sm:py-16 animate-in fade-in duration-300">
-      <div className="bg-white w-full max-w-4xl rounded-[32px] sm:rounded-[40px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.8)] border border-slate-200 overflow-hidden relative my-auto animate-in zoom-in-95 duration-300">
-        
-        {/* Header / Brand Band */}
-        <div className="flex justify-between items-center px-6 md:px-12 py-5 md:py-6 border-b border-slate-100 bg-slate-50/50">
-          <div className="flex items-center space-x-3">
-            <div className="p-1.5 bg-amber-500 rounded-lg text-white">
-              <Plane className="w-4 h-4 animate-pulse" />
-            </div>
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 block leading-none">Diagnostic Vault</span>
-              <span className="text-xs font-black text-slate-800 uppercase tracking-widest mt-0.5 block">Wholesale Pricing Engine</span>
-            </div>
-          </div>
-          <button onClick={onClose} className="p-2 hover:bg-slate-200/60 rounded-full transition-colors">
-            <X className="w-6 h-6 text-slate-500" />
-          </button>
-        </div>
-
-        {/* Dynamic Scan Progress Bar */}
-        {typeof step === 'number' && (
-          <div className="w-full bg-slate-100 h-2 relative overflow-hidden">
-            <div className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-orange-500 to-amber-500 transition-all duration-300" style={{ width: `${(step / 5) * 100}%` }} />
-            <div className="absolute top-0 bottom-0 w-20 bg-white/40 skew-x-12 animate-scan" style={{ left: `${((step / 5) * 100) - 10}%` }} />
-          </div>
-        )}
-
-        <div className="p-6 sm:p-10 md:p-14">
-          {typeof step === 'number' && (
-            <div className="space-y-8 animate-in fade-in-50 duration-500">
-              <div className="text-center md:text-left space-y-2">
-                <span className="inline-block text-[10px] font-black text-amber-600 bg-amber-50 border border-amber-200/50 px-3 py-1 rounded-full uppercase tracking-[0.4em]">Section {step} of 5</span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-950 uppercase tracking-tighter leading-tight mt-2">
-                  {currentQuestion.title}
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                {currentQuestion.options.map((option) => {
-                  const isSelected = answers[`q${step}`]?.key === option.key;
-                  return (
-                    <button
-                      key={`${currentQuestion.id}-${option.key}`} // Refined key to reset DOM state completely per question (removes carrying-over pre-lit elements)
-                      onClick={() => handleOptionSelect(option)}
-                      className={`group text-left p-6 rounded-2xl border-2 transition-all duration-300 active:scale-[0.98] flex items-start space-x-4 ${
-                        isSelected 
-                          ? 'border-amber-500 bg-amber-50/50 text-slate-950 shadow-lg shadow-amber-500/5' 
-                          : 'border-slate-100 bg-slate-50/70 hover:border-amber-400 hover:bg-white text-slate-700 hover:shadow-md'
-                      }`}
-                    >
-                      <span className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-xs shrink-0 transition-all ${
-                        isSelected 
-                          ? 'bg-slate-950 text-white scale-110' 
-                          : 'bg-white border border-slate-200 text-slate-400 group-hover:bg-amber-400 group-hover:text-slate-950'
-                      }`}>
-                        {option.key}
-                      </span>
-                      <span className="font-bold text-sm md:text-base pt-0.5 leading-snug">
-                        {option.text}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {step === 'lead' && (
-            <div className="max-w-2xl mx-auto text-center space-y-8 py-4 animate-in fade-in zoom-in-95 duration-500">
-              {isSubmitting ? (
-                <div className="flex flex-col items-center justify-center space-y-6 py-12">
-                  <div className="relative">
-                    <div className="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
-                    <Plane className="w-6 h-6 text-amber-500 absolute inset-0 m-auto animate-pulse" />
-                  </div>
-                  <div className="space-y-2">
-                    <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-amber-600 animate-pulse">ANALYZING VACATION PARAMETERS</span>
-                    <span className="block text-slate-400 font-bold text-xs uppercase tracking-widest">Compiling wholesale markup variances...</span>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className="w-20 h-20 bg-amber-50 rounded-3xl flex items-center justify-center text-amber-600 mx-auto border border-amber-100 shadow-inner animate-float">
-                    <ShieldCheck className="w-10 h-10" />
-                  </div>
-                  <div className="space-y-3">
-                    <h2 className="text-3xl md:text-5xl font-black text-slate-950 uppercase tracking-tighter leading-none">
-                      DIAGNOSTIC SAVED.
-                    </h2>
-                    <p className="text-slate-500 font-medium text-sm md:text-base leading-relaxed max-w-xl mx-auto">
-                      Where should we dispatch your custom wholesale analysis report? Save your email to immediately access your confidential system walkthrough.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleLeadSubmit} className="space-y-6 text-left max-w-lg mx-auto">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2">Full Legal Name</label>
-                        <input 
-                          required
-                          type="text" 
-                          placeholder="First & Last Name" 
-                          value={leadName}
-                          onChange={(e) => setLeadName(e.target.value)}
-                          className="w-full h-14 bg-slate-50 rounded-2xl px-5 outline-none border-2 border-slate-100 focus:border-amber-400 focus:bg-white text-slate-900 font-bold transition-all" 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2">Confidential Delivery Email</label>
-                        <input 
-                          required
-                          type="email" 
-                          placeholder="name@domain.com" 
-                          value={leadEmail}
-                          onChange={(e) => setLeadEmail(e.target.value)}
-                          className="w-full h-14 bg-slate-50 rounded-2xl px-5 outline-none border-2 border-slate-100 focus:border-amber-400 focus:bg-white text-slate-900 font-bold transition-all" 
-                        />
-                      </div>
-                    </div>
-                    
-                    <ActionButton type="submit" variant="waitlist" className="w-full py-5 text-sm uppercase font-black tracking-widest">
-                      Generate Private Savings Matrix
-                    </ActionButton>
-                  </form>
-                </>
-              )}
-            </div>
-          )}
-
-          {step === 'results' && (
-            <div className="space-y-8 md:space-y-10 py-2 animate-in zoom-in-95 duration-500">
-              
-              {/* Alert Ribbon */}
-              <div className="bg-red-50 border-2 sm:border-4 border-red-500/80 rounded-2xl sm:rounded-3xl p-5 text-center shadow-lg relative overflow-hidden">
-                <div className="absolute top-0 left-0 bottom-0 w-2 bg-red-600" />
-                <h3 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-black text-red-700 tracking-tighter uppercase leading-tight">
-                  🚨 WARNING: You are currently wasting approximately ${calculatedLoss.toLocaleString()} per year on public retail booking margins.
-                </h3>
-              </div>
-
-              {/* Persona Display */}
-              <div className="bg-slate-950 text-white rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden">
-                <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/10 blur-[80px] rounded-full pointer-events-none" />
-                <div className="text-center lg:text-left space-y-2 relative z-10 w-full lg:w-auto">
-                  <span className="text-[10px] font-black text-amber-400 uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">Assigned Profile</span>
-                  <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tighter uppercase italic leading-none mt-2">
-                    {personaTitle}
-                  </h4>
-                  <p className="text-slate-400 font-medium text-xs sm:text-sm lg:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                    {personaDesc}
-                  </p>
-                </div>
-                <div className="bg-gradient-to-br from-amber-400 to-amber-500 p-5 md:p-6 rounded-2xl sm:rounded-3xl text-slate-950 font-black text-center shrink-0 w-full sm:w-auto min-w-[220px] shadow-2xl relative z-10 border border-amber-300">
-                  <span className="block text-[10px] uppercase tracking-widest opacity-85">Verified Annual Leakage</span>
-                  <span className="text-2xl sm:text-3xl block mt-1 tracking-tight">${calculatedLoss.toLocaleString()} / Yr</span>
-                </div>
-              </div>
-
-              {/* Embedded Interactive Backoffice Presentation */}
-              <div className="space-y-4">
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-2 border-b border-slate-100 pb-3">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">SECURE BACK-OFFICE INVENTORY BROADCAST</span>
-                  <div className="flex items-center space-x-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-[9px] font-black tracking-widest uppercase border border-green-100">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping" />
-                    <span>Live Session Connected</span>
-                  </div>
-                </div>
-                <div className="relative aspect-video w-full rounded-2xl md:rounded-[32px] overflow-hidden border-4 md:border-8 border-slate-950 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.8)] bg-black gold-glow">
-                  <iframe 
-                    src={DIAGNOSTIC_VIDEO_URL} 
-                    className="w-full h-full"
-                    loading="lazy" 
-                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
-                    allowFullScreen
-                  />
-                </div>
-              </div>
-
-              {/* Action Suite */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-2">
-                <ActionButton 
-                  variant="primary" 
-                  className="w-full sm:w-auto px-10 py-5 text-sm font-black"
-                  onClick={() => {
-                    // Automatically triggers SMS app on mobile devices with pre-filled message
-                    window.location.href = "sms:+17658107271?&body=TPXLife";
-                  }}
-                >
-                  Text TPXLife to 765.810.7271 for more info
-                </ActionButton>
-                <button 
-                  onClick={() => {
-                    onClose();
-                    setView('presentation');
-                  }}
-                  className="text-slate-500 hover:text-slate-950 font-black uppercase text-[10px] tracking-widest py-2 hover:underline transition-colors"
-                >
-                  Explore Premium Perks
-                </button>
-                <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-200" />
-                <button 
-                  onClick={() => {
-                    setStep(1);
-                    setAnswers({ q1: null, q2: null, q3: null, q4: null, q5: null });
-                  }}
-                  className="text-slate-400 hover:text-slate-950 font-black uppercase text-[10px] tracking-widest py-2 transition-colors"
-                >
-                  Reset Scan
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+  const chosen = answers[3] ?? 0;
+  const recs = [
+    {title:"Your starting point: Content Clarity",desc:"A repeatable content plan can make it easier to show up and explain what you offer.",resource:"Start with the Travel Marketing Academy and ready-to-record scripts."},
+    {title:"Your starting point: Confident Video",desc:"You want to communicate more naturally on camera without memorizing everything.",resource:"Try the free Mr. Prompterson teleprompter and video lessons."},
+    {title:"Your starting point: Lead Capture",desc:"A useful quiz or landing page can give interested people a clear next step.",resource:"Explore the No Time to Share example and funnel training."},
+    {title:"Your starting point: Follow-Up",desc:"A simple, permission-based follow-up process helps you keep conversations organized.",resource:"Start with lead-generation and follow-up lessons in the hub."}
+  ];
+  const rec = recs[chosen];
+  const reset = () => {setStep(0);setAnswers({});};
+  return <div className="fixed inset-0 z-[200] flex justify-center items-start overflow-y-auto bg-slate-950/90 backdrop-blur-xl p-3 sm:p-8 py-8 sm:py-16">
+    <div className="bg-white w-full max-w-3xl rounded-[32px] shadow-2xl overflow-hidden relative my-auto">
+      <div className="flex justify-between items-center px-6 sm:px-10 py-6 border-b border-slate-200">
+        <div><p className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-600">TravelProX Marketing Checkup</p><p className="font-black text-slate-950 uppercase text-sm">Find your next marketing move</p></div>
+        <button aria-label="Close marketing checkup" onClick={onClose}><X className="w-6 h-6 text-slate-500"/></button>
+      </div>
+      <div className="p-6 sm:p-10">
+        {step < questions.length ? <>
+          <p className="text-amber-600 text-xs font-black uppercase tracking-widest mb-3">Question {step+1} of {questions.length}</p>
+          <div className="w-full h-2 rounded-full bg-slate-100 mb-8"><div className="h-2 rounded-full bg-amber-400 transition-all" style={{width:`${((step+1)/questions.length)*100}%`}}/></div>
+          <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 mb-8">{questions[step].title}</h2>
+          <div className="grid sm:grid-cols-2 gap-4">{questions[step].options.map((opt,i)=><button key={opt} onClick={()=>{setAnswers(prev=>({...prev,[step]:i}));setStep(prev=>prev+1)}} className="text-left border-2 border-slate-100 hover:border-amber-400 bg-slate-50 rounded-2xl p-5 font-bold text-slate-800 transition-colors">{String.fromCharCode(65+i)}. {opt}</button>)}</div>
+          {step>0&&<button className="mt-6 text-slate-500 font-bold text-sm" onClick={()=>setStep(prev=>prev-1)}>← Previous question</button>}
+        </>:<>
+          <span className="inline-flex rounded-full bg-amber-100 text-amber-800 font-black text-xs uppercase tracking-widest px-4 py-2 mb-5">Your suggested next step</span>
+          <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 mb-4">{rec.title}</h2>
+          <p className="text-slate-600 text-lg leading-relaxed mb-5">{rec.desc}</p>
+          <div className="rounded-2xl bg-slate-950 text-white p-6 mb-7"><p className="text-amber-400 font-black uppercase text-xs tracking-widest mb-2">Recommended resource</p><p className="font-bold">{rec.resource}</p></div>
+          <p className="text-slate-500 text-sm mb-6">This is a practical recommendation based on your answers, not a scored assessment or a promise of business results. No email is required to see it.</p>
+          <div className="flex flex-wrap gap-3"><a className="inline-flex rounded-xl bg-amber-400 px-6 py-4 font-black uppercase text-xs tracking-widest text-slate-950" href="/marketing-hub/">Explore Free Marketing Hub →</a><button className="rounded-xl border border-slate-300 px-6 py-4 font-black uppercase text-xs tracking-widest text-slate-700" onClick={reset}>Retake checkup</button></div>
+        </>}
       </div>
     </div>
-  );
+  </div>;
 };
 
 /**
@@ -668,95 +383,14 @@ const SavingsTicker = () => {
 /**
  * FLUID RESPONSIVE GLASS SYSTEM HEADER
  */
-const Header = ({ setView, activeView }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <nav className="fixed top-0 left-0 w-full z-[100] px-4 md:px-6 py-6 pointer-events-none">
-      <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/95 backdrop-blur-xl border border-slate-200/60 rounded-[28px] px-6 py-4 shadow-2xl pointer-events-auto relative">
-        
-        {/* Brand */}
-        <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => { setView('home'); setIsOpen(false); }}>
-          <div className="p-2.5 bg-slate-950 rounded-xl group-hover:rotate-12 transition-transform shadow-lg shadow-amber-500/10">
-            <Plane className="w-5 h-5 text-amber-400" />
-          </div>
-          <span className="font-black text-slate-950 tracking-tighter text-xl uppercase">
-            TRAVELPRO<span className="text-amber-500 text-2xl italic leading-none">X</span>
-          </span>
-        </div>
-
-        {/* Desktop Links */}
-        <div className="hidden lg:flex items-center space-x-8">
-          <button 
-            onClick={() => setView('presentation')} 
-            className={`text-[10px] font-black uppercase tracking-widest transition-colors ${
-              activeView === 'presentation' ? 'text-amber-500' : 'text-slate-500 hover:text-slate-950'
-            }`}
-          >
-            Member Perks
-          </button>
-          <button 
-            onClick={() => setView('home')} 
-            className={`text-[10px] font-black uppercase tracking-widest transition-colors ${
-              activeView === 'home' ? 'text-amber-500' : 'text-slate-500 hover:text-slate-950'
-            }`}
-          >
-            Core Portal
-          </button>
-          <div className="w-[1px] h-4 bg-slate-200" />
-          <button 
-            onClick={() => setView('agency')} 
-            className={`text-[10px] font-black uppercase tracking-widest transition-all px-4 py-2 bg-amber-50/50 hover:bg-amber-100/50 rounded-full border border-amber-200/40 ${
-              activeView === 'agency' ? 'text-amber-600 bg-amber-100/50' : 'text-slate-500 hover:text-slate-950'
-            }`}
-          >
-            Promoter Hub
-          </button>
-        </div>
-
-        {/* Desktop CTA */}
-        <div className="hidden lg:block">
-          <ActionButton variant="primary" noGloss className="py-2.5 px-6 rounded-xl text-[10px] uppercase tracking-widest" onClick={() => setView('agency')}>
-            Partner Club
-          </ActionButton>
-        </div>
-
-        {/* Mobile Hamburger Controls */}
-        <button className="lg:hidden p-2 text-slate-800 hover:bg-slate-50 rounded-xl transition-all" onClick={() => setIsOpen(!isOpen)}>
-          <Menu className="w-6 h-6" />
-        </button>
-
-        {/* Mobile Panel Overlay */}
-        {isOpen && (
-          <div className="absolute top-[90px] left-0 right-0 bg-white/95 backdrop-blur-2xl border border-slate-200/80 rounded-3xl p-6 shadow-2xl flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4 duration-200 pointer-events-auto">
-            <button 
-              onClick={() => { setView('presentation'); setIsOpen(false); }} 
-              className="text-left font-black uppercase tracking-wider text-xs py-2 text-slate-800 hover:text-amber-500"
-            >
-              Member Perks & Vault
-            </button>
-            <button 
-              onClick={() => { setView('home'); setIsOpen(false); }} 
-              className="text-left font-black uppercase tracking-wider text-xs py-2 text-slate-800 hover:text-amber-500"
-            >
-              Core Search Portal
-            </button>
-            <button 
-              onClick={() => { setView('agency'); setIsOpen(false); }} 
-              className="text-left font-black uppercase tracking-wider text-xs py-2 text-slate-800 hover:text-amber-500"
-            >
-              Promoter Hub
-            </button>
-            <hr className="border-slate-100" />
-            <ActionButton variant="primary" noGloss className="py-3 px-6 rounded-xl text-[11px] uppercase tracking-wider w-full" onClick={() => { setView('agency'); setIsOpen(false); }}>
-              Partner Program
-            </ActionButton>
-          </div>
-        )}
-
-      </div>
-    </nav>
-  );
+const Header = ({ setView }) => {
+  const [isOpen,setIsOpen] = useState(false);
+  return <nav className="fixed top-0 left-0 w-full z-[100] px-4 md:px-6 py-5 pointer-events-none"><div className="max-w-7xl mx-auto flex items-center justify-between bg-white/95 backdrop-blur-xl border border-slate-200 rounded-[24px] px-5 sm:px-8 py-4 shadow-2xl pointer-events-auto">
+    <button onClick={()=>setView('home')} className="flex items-center gap-3 font-black text-xl uppercase tracking-tighter text-slate-950"><Plane className="w-6 h-6 text-amber-500"/> TRAVELPRO<span className="text-amber-500 italic">X</span></button>
+    <div className="hidden sm:flex items-center gap-6"><button onClick={()=>setView('home')} className="text-xs font-black uppercase tracking-widest text-slate-700">Home</button><a href="/marketing-hub/" className="text-xs font-black uppercase tracking-widest text-slate-700">Marketing Hub</a><a href="/marketing-hub/#member" className="rounded-xl bg-amber-400 px-5 py-3 text-xs font-black uppercase tracking-widest text-slate-950">Free Member Access</a></div>
+    <button className="sm:hidden text-slate-950" aria-label="Toggle menu" onClick={()=>setIsOpen(!isOpen)}><Menu/></button>
+    {isOpen&&<div className="absolute top-[78px] left-4 right-4 rounded-2xl bg-white p-5 shadow-xl flex flex-col gap-4"><button className="text-left font-bold" onClick={()=>{setView('home');setIsOpen(false)}}>Home</button><a href="/marketing-hub/" className="font-bold">Marketing Hub</a><a href="/marketing-hub/#member" className="font-bold">Free Member Access</a></div>}
+  </div></nav>;
 };
 
 /**
@@ -812,7 +446,7 @@ const HomeView = ({ openWaitlist, setView }) => {
                 }} 
                 className="group text-white font-black text-xs uppercase tracking-[0.4em] flex items-center hover:text-amber-400 transition-colors py-4 px-6 rounded-full hover:bg-white/5"
               >
-                View Live Comp <MoveRight className="ml-3 w-5 h-5 group-hover:translate-x-3 transition-transform" />
+                Discover Free Tools <MoveRight className="ml-3 w-5 h-5 group-hover:translate-x-3 transition-transform" />
               </button>
             </div>
           </ScrollReveal>
@@ -903,7 +537,7 @@ const HomeView = ({ openWaitlist, setView }) => {
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
                   <div className="absolute bottom-8 left-8 right-8 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <ActionButton variant="waitlist" className="w-full py-4 rounded-2xl" onClick={() => setIsQuizOpen(true)}>Verify Special Rate</ActionButton>
+                    <ActionButton variant="waitlist" className="w-full py-4 rounded-2xl" onClick={() => setIsQuizOpen(true)}>Explore Marketing Needs Rate</ActionButton>
                   </div>
                 </div>
                 
