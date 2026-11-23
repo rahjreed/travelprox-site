@@ -457,7 +457,7 @@ const HomeView = ({ openWaitlist, setView }) => {
             <p className="text-slate-600 font-medium mb-6">Identify your biggest marketing challenge and get a suggested starting point. No email required.</p>
             <div className="flex flex-wrap gap-3">
               <button onClick={() => setIsQuizOpen(true)} className="rounded-xl bg-amber-400 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Start Marketing Checkup</button>
-              <a href="/marketing-hub/#member" className="rounded-xl border border-slate-300 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Member Sign In / Demo Access</a>
+              <a href="/marketing-hub/#member" className="rounded-xl border border-slate-300 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Marketing Hub Sign In</a>
             </div>
           </div>
         </div>
