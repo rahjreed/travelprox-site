@@ -421,7 +421,7 @@ const HomeView = ({ openWaitlist, setView }) => {
         <div className="relative z-10 w-full max-w-6xl text-center">
           <ScrollReveal>
             <div className="mb-10 flex flex-col items-center space-y-8">
-              <SavingsTicker />
+
               
               <h1 className="text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem] xl:text-[13rem] font-black text-white tracking-tighter leading-[0.8] uppercase drop-shadow-[0_10px_50px_rgba(0,0,0,0.65)]">
                 TRAVEL MARKETING <br/> 
@@ -451,158 +451,36 @@ const HomeView = ({ openWaitlist, setView }) => {
             </div>
           </ScrollReveal>
 
-          {/* DYNAMIC SCALED SCANNING COMPONENT */}
-          <ScrollReveal>
-            <div 
-              onClick={() => setIsQuizOpen(true)}
-              className="max-w-4xl mx-auto bg-white/95 backdrop-blur-2xl rounded-[32px] sm:rounded-[40px] shadow-[0_32px_80px_-16px_rgba(0,0,0,0.4)] border border-white overflow-hidden cursor-pointer group hover:scale-[1.01] transition-all duration-500"
-            >
-              <div className="flex border-b border-slate-100 bg-slate-50/50">
-                {['Hotel Diagnostic Scanner', 'Flight Route Optimizer', 'Cruise Sizer'].map((tab, idx) => (
-                  <div
-                    key={tab}
-                    className={`flex-1 py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-center transition-all ${
-                      idx === 0 ? 'bg-white text-amber-600 border-b-4 border-amber-500' : 'text-slate-400 group-hover:text-slate-600'
-                    }`}
-                  >
-                    {tab}
-                  </div>
-                ))}
-              </div>
-              <div className="p-6 sm:p-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  
-                  <div className="bg-slate-50/80 p-5 rounded-2xl text-left border border-slate-100 group-hover:bg-slate-100/50 transition-colors">
-                    <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Primary Target</span>
-                    <div className="flex items-center space-x-3 text-slate-500 font-bold italic text-sm">
-                      <MapPin className="w-5 h-5 text-amber-500 animate-bounce" />
-                      <span>Select Vacation Target Hub</span>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-slate-50/80 p-5 rounded-2xl text-left border border-slate-100 group-hover:bg-slate-100/50 transition-colors">
-                    <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Diagnostic Profile</span>
-                    <div className="flex items-center space-x-3 text-slate-500 font-bold italic text-sm">
-                      <Calendar className="w-5 h-5 text-orange-500" />
-                      <span>Input Frequency & Budgets</span>
-                    </div>
-                  </div>
-                  
-                  <ActionButton variant="orange" className="h-full rounded-2xl cursor-pointer" onClick={() => setIsQuizOpen(true)}>
-                    <Search className="w-4 h-4 animate-pulse mr-2" />
-                    <span>Run Unlisted Audit</span>
-                  </ActionButton>
-
-                </div>
-              </div>
+          <div className="max-w-3xl mx-auto rounded-[32px] bg-white/95 backdrop-blur-xl p-7 sm:p-10 shadow-2xl border border-white text-left">
+            <span className="text-amber-600 text-xs font-black uppercase tracking-widest">Not sure what marketing tool you need?</span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight mt-2 mb-3">Take the free 5-question marketing checkup</h2>
+            <p className="text-slate-600 font-medium mb-6">Identify your biggest marketing challenge and get a suggested starting point. No email required.</p>
+            <div className="flex flex-wrap gap-3">
+              <button onClick={() => setIsQuizOpen(true)} className="rounded-xl bg-amber-400 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Start Marketing Checkup</button>
+              <a href="/marketing-hub/#member" className="rounded-xl border border-slate-300 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Member Sign In / Demo Access</a>
             </div>
-          </ScrollReveal>
+          </div>
         </div>
       </section>
 
       {/* RETAIL AUDIT COMPLEMENT (MODAL CONTAINER TRIGGER) */}
       <TravelerQuiz isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} setView={setView} />
 
-      {/* MEMBER COMPARATIVE INTEL */}
-      <section id="insights" className="max-w-7xl mx-auto px-4 sm:px-6 py-24 sm:py-32 bg-white">
-        <ScrollReveal>
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-slate-100 pb-12 gap-8">
-            <div className="max-w-2xl">
-              <span className="text-xs font-black uppercase tracking-[0.5em] text-amber-600 block mb-3">Pricing Variance Index</span>
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-slate-950 tracking-tighter uppercase leading-[0.85] italic">
-                STEP BEHIND THE VELVET ROPE.
-              </h2>
-            </div>
-            <p className="text-slate-500 font-bold max-w-xs text-sm leading-relaxed">
-              Public indexes reflect standard retail brokerage margins. Cleared members unlock 25% to 60% system reductions across all nodes.
-            </p>
+      <section id="insights" className="bg-slate-50 py-20 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-amber-600 font-black uppercase tracking-widest text-xs mb-3">Tools built for travel entrepreneurs</p>
+          <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter text-slate-950 mb-5">Create. Connect. Grow.</h2>
+          <p className="text-slate-600 font-medium max-w-2xl mx-auto mb-10">Learn practical marketing skills, record stronger videos, and explore lead-generation funnels without needing to join a travel company.</p>
+          <div className="grid md:grid-cols-3 gap-5 text-left">
+            {[{title:'Creator Tools',desc:'Use free tools to record and share better travel content.'},{title:'Marketing Academy',desc:'Learn practical content, lead-generation, and follow-up basics.'},{title:'Funnel Examples',desc:'See how a travel quiz can introduce an offer and invite interested people to connect.'}].map(item=><div key={item.title} className="rounded-3xl bg-white border border-slate-200 p-8 shadow-sm"><h3 className="text-xl font-black uppercase text-slate-950 mb-3">{item.title}</h3><p className="text-slate-600">{item.desc}</p></div>)}
           </div>
-        </ScrollReveal>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            { name: "Florida", loc: "Miami Beach", price: "189", tag: "Beachfront VIP" },
-            { name: "New York", loc: "Times Square Luxury", price: "245", tag: "Penthouse Suite" },
-            { name: "Las Vegas", loc: "The Strip Premium", price: "99", tag: "High Roller" },
-            { name: "Cancun", loc: "Tropical All-Inclusive", price: "220", tag: "Paradise Cove" }
-          ].map((dest, i) => (
-            <ScrollReveal key={i}>
-              <div className="group cursor-pointer">
-                <div className="relative h-[480px] sm:h-[520px] rounded-[48px] overflow-hidden mb-6 border-4 border-slate-50 shadow-2xl transition-all duration-700 hover:-translate-y-3">
-                  <img src={DESTINATION_ASSETS[dest.name]} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt={dest.name} />
-                  <div className="absolute top-8 left-8">
-                    <span className="px-5 py-2 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full text-[9px] font-black text-slate-950 uppercase tracking-widest shadow-lg border border-yellow-300">
-                      {dest.tag}
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                  <div className="absolute bottom-8 left-8 right-8 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <ActionButton variant="waitlist" className="w-full py-4 rounded-2xl" onClick={() => setIsQuizOpen(true)}>Explore Marketing Needs Rate</ActionButton>
-                  </div>
-                </div>
-                
-                <div className="flex justify-between items-start px-4">
-                  <div>
-                    <h3 className="text-2xl font-black text-slate-950 uppercase tracking-tighter leading-none mb-1.5">{dest.name}</h3>
-                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest flex items-center">
-                      <MapPin className="w-3.5 h-3.5 mr-1 text-amber-500 shrink-0" /> {dest.loc}
-                    </p>
-                  </div>
-                  <div className="text-right shrink-0">
-                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest line-through mb-0.5">Retail: ${parseInt(dest.price) + 120}</p>
-                     <p className="text-xl sm:text-2xl font-black text-amber-600 leading-none">${dest.price}/n</p>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
+          <a href="/marketing-hub/" className="inline-flex mt-9 rounded-xl bg-slate-950 text-amber-400 font-black uppercase text-xs tracking-widest px-8 py-5">Explore the Marketing Hub →</a>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-white pt-24 pb-16 px-4 sm:px-6 border-t border-slate-100">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-16 mb-20">
-          <div className="lg:col-span-2">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="p-2.5 bg-slate-950 rounded-xl">
-                <Plane className="w-5 h-5 text-amber-400" />
-              </div>
-              <span className="font-black text-slate-950 text-2xl tracking-tighter uppercase">TRAVELPRO<span className="text-amber-500">X</span></span>
-            </div>
-            <p className="text-slate-500 font-medium max-w-md leading-relaxed mb-8 text-base">
-              Operating a global wholesale allocation framework. By amalgamating active group volume, we deliver direct manufacturer rates bypass commissions.
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Internal Navigation</h4>
-            <ul className="space-y-4">
-              <li><button onClick={() => setView('home')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Global Core Portal</button></li>
-              <li><button onClick={() => setView('agency')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Promoter Network</button></li>
-              <li><button onClick={() => setView('presentation')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">VIP Benefits Vault</button></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Core Status</h4>
-            <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-100/50">
-               <div className="flex items-center space-x-3 mb-2">
-                 <span className="relative flex h-2.5 w-2.5">
-                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                 </span>
-                 <span className="text-[10px] font-black text-emerald-800 uppercase tracking-widest">Scanning Nodes Online</span>
-               </div>
-               <p className="text-[11px] font-bold text-slate-600 leading-snug">Global distribution network and travel APIs operational.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">
-            © 2026 TRAVEL PRO X & CALLISTA DIGITAL • EST. 2014
-          </p>
-        </div>
+      <footer className="bg-white border-t border-slate-200 py-12 px-5 text-center">
+        <div className="flex flex-wrap justify-center gap-6 mb-5 text-xs uppercase font-black tracking-widest text-slate-700"><a href="/marketing-hub/">Marketing Hub</a><a href="/marketing-hub/#member">Member Access</a></div>
+        <p className="text-xs text-slate-500">© 2026 TravelProX & Callista Digital</p>
       </footer>
     </div>
   );
