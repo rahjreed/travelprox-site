@@ -208,335 +208,50 @@ const ActionButton = ({ onClick, children, className = "", variant = "primary", 
 /**
  * TRAVELER PERSONA QUIZ & DIAGNOSTIC MODAL
  */
-const TravelerQuiz = ({ isOpen, onClose, setView }) => {
-  const [step, setStep] = useState(1); // Steps 1 to 5, 'lead', 'results'
-  const [answers, setAnswers] = useState({ q1: null, q2: null, q3: null, q4: null, q5: null });
-  const [leadName, setLeadName] = useState('');
-  const [leadEmail, setLeadEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-
+const TravelerQuiz = ({ isOpen, onClose }) => {
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
   if (!isOpen) return null;
-
-  const QUESTIONS = [
-    {
-      id: 'q1',
-      title: "Where is your family planning to vacation next?",
-      options: [
-        { key: 'A', text: "Orlando / Theme Parks" },
-        { key: 'B', text: "Las Vegas / Entertainment Hubs" },
-        { key: 'C', text: "Tropical Beach / All-Inclusive Resorts" },
-        { key: 'D', text: "Major City Exploration / Mountain Getaways" }
-      ]
-    },
-    {
-      id: 'q2',
-      title: "How many times a year do you typically travel?",
-      options: [
-        { key: 'A', text: "Only Once (1 trip a year)", value: 1 },
-        { key: 'B', text: "Seasonal Jetsetter (2-3 trips a year)", value: 2.5 },
-        { key: 'C', text: "Regular Voyager (4-5 trips a year)", value: 4.5 },
-        { key: 'D', text: "Constant Explorer (6+ trips a year)", value: 6 }
-      ]
-    },
-    {
-      id: 'q3',
-      title: "On average, how many days do you stay on a single vacation?",
-      options: [
-        { key: 'A', text: "Quick Weekend (2-3 Days)", value: 2.5 },
-        { key: 'B', text: "Standard Getaway (4-5 Days)", value: 4.5 },
-        { key: 'C', text: "Full Week (6-7 Days)", value: 6.5 },
-        { key: 'D', text: "Extended Luxury (8+ Days)", value: 9 }
-      ]
-    },
-    {
-      id: 'q4',
-      title: "What is your typical nightly budget for a quality resort or hotel stay?",
-      options: [
-        { key: 'A', text: "Value Conscious ($100 - $180 / night)", value: 140 },
-        { key: 'B', text: "Standard Comfort ($180 - $280 / night)", value: 230 },
-        { key: 'C', text: "Premium Luxury ($280 - $450 / night)", value: 365 },
-        { key: 'D', text: "Elite Executive ($450+ / night)", value: 550 }
-      ]
-    },
-    {
-      id: 'q5',
-      title: "What is your primary objective right now?",
-      options: [
-        { key: 'A', text: "Just looking to save maximum money on my own personal vacations." },
-        { key: 'B', text: "I want to save money, but I’m also open to making a recurring income promoting travel." },
-        { key: 'C', text: "I want to experience luxury VIP destinations without paying retail." },
-        { key: 'D', text: "I am looking to completely replace my current income with a travel business." }
-      ]
-    }
+  const questions = [
+    { title: "What best describes your travel business right now?", options: ["I'm just getting started", "I'm active but need more leads", "I have leads but struggle with follow-up", "I'm growing and want better systems"] },
+    { title: "How often are you posting travel-related content?", options: ["Rarely or never", "A few times a month", "A few times a week", "Almost every day"] },
+    { title: "What happens when someone asks about your travel offer?", options: ["I send a message and hope they reply", "I share a link but don't track interest", "I collect contact information manually", "I have a repeatable follow-up process"] },
+    { title: "Which marketing task feels hardest?", options: ["Knowing what to post", "Recording confident videos", "Finding and capturing interested people", "Following up consistently"] },
+    { title: "If you improved one thing this month, what would it be?", options: ["Create content more consistently", "Make better videos", "Build a lead-generating page", "Organize my follow-up system"] }
   ];
-
-  const currentQuestion = QUESTIONS[step - 1];
-
-  const handleOptionSelect = (option) => {
-    setAnswers(prev => ({ ...prev, [`q${step}`]: option }));
-    if (step < 5) {
-      setTimeout(() => setStep(prev => prev + 1), 250);
-    } else {
-      setTimeout(() => setStep('lead'), 250);
-    }
-  };
-
-  const handleLeadSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const formData = new FormData();
-      formData.append('email_address', leadEmail);
-      formData.append('fields[first_name]', leadName);
-      
-      await fetch("https://app.kit.com/forms/9018875/subscriptions", {
-        method: "POST",
-        body: formData,
-        mode: 'no-cors'
-      });
-      setToastMessage("Wholesale Diagnostic Verified & Synced!");
-    } catch (err) {
-      setToastMessage("Local Lead Processed Securely.");
-    }
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setStep('results');
-    }, 1200);
-  };
-
-  // Mathematical calculations for retail leakage
-  const q2Multiplier = answers.q2?.value || 1.5;
-  const q3Multiplier = answers.q3?.value || 4.5;
-  const q4Base = answers.q4?.value || 230;
-  const calculatedLoss = Math.round((q4Base * q3Multiplier * q2Multiplier) * 0.45);
-
-  const q5Key = answers.q5?.key || 'A';
-  const isVictim = q5Key === 'A' || q5Key === 'C';
-  const personaTitle = isVictim ? "The Retail Victim" : "The Hidden Empire Builder";
-  const personaDesc = isVictim 
-    ? "You are currently traveling but burning massive amounts of capital by unknowingly fueling public search engine markups."
-    : "You are primed to turn standard vacation overhead into an automated, highly-scalable recurring revenue system.";
-
-  return (
-    <div className="fixed inset-0 z-[200] flex justify-center items-start overflow-y-auto bg-slate-950/90 backdrop-blur-xl p-3 sm:p-6 md:p-8 py-8 sm:py-16 animate-in fade-in duration-300">
-      <div className="bg-white w-full max-w-4xl rounded-[32px] sm:rounded-[40px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.8)] border border-slate-200 overflow-hidden relative my-auto animate-in zoom-in-95 duration-300">
-        
-        {/* Header / Brand Band */}
-        <div className="flex justify-between items-center px-6 md:px-12 py-5 md:py-6 border-b border-slate-100 bg-slate-50/50">
-          <div className="flex items-center space-x-3">
-            <div className="p-1.5 bg-amber-500 rounded-lg text-white">
-              <Plane className="w-4 h-4 animate-pulse" />
-            </div>
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 block leading-none">Diagnostic Vault</span>
-              <span className="text-xs font-black text-slate-800 uppercase tracking-widest mt-0.5 block">Wholesale Pricing Engine</span>
-            </div>
-          </div>
-          <button onClick={onClose} className="p-2 hover:bg-slate-200/60 rounded-full transition-colors">
-            <X className="w-6 h-6 text-slate-500" />
-          </button>
-        </div>
-
-        {/* Dynamic Scan Progress Bar */}
-        {typeof step === 'number' && (
-          <div className="w-full bg-slate-100 h-2 relative overflow-hidden">
-            <div className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-orange-500 to-amber-500 transition-all duration-300" style={{ width: `${(step / 5) * 100}%` }} />
-            <div className="absolute top-0 bottom-0 w-20 bg-white/40 skew-x-12 animate-scan" style={{ left: `${((step / 5) * 100) - 10}%` }} />
-          </div>
-        )}
-
-        <div className="p-6 sm:p-10 md:p-14">
-          {typeof step === 'number' && (
-            <div className="space-y-8 animate-in fade-in-50 duration-500">
-              <div className="text-center md:text-left space-y-2">
-                <span className="inline-block text-[10px] font-black text-amber-600 bg-amber-50 border border-amber-200/50 px-3 py-1 rounded-full uppercase tracking-[0.4em]">Section {step} of 5</span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-950 uppercase tracking-tighter leading-tight mt-2">
-                  {currentQuestion.title}
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                {currentQuestion.options.map((option) => {
-                  const isSelected = answers[`q${step}`]?.key === option.key;
-                  return (
-                    <button
-                      key={`${currentQuestion.id}-${option.key}`} // Refined key to reset DOM state completely per question (removes carrying-over pre-lit elements)
-                      onClick={() => handleOptionSelect(option)}
-                      className={`group text-left p-6 rounded-2xl border-2 transition-all duration-300 active:scale-[0.98] flex items-start space-x-4 ${
-                        isSelected 
-                          ? 'border-amber-500 bg-amber-50/50 text-slate-950 shadow-lg shadow-amber-500/5' 
-                          : 'border-slate-100 bg-slate-50/70 hover:border-amber-400 hover:bg-white text-slate-700 hover:shadow-md'
-                      }`}
-                    >
-                      <span className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-xs shrink-0 transition-all ${
-                        isSelected 
-                          ? 'bg-slate-950 text-white scale-110' 
-                          : 'bg-white border border-slate-200 text-slate-400 group-hover:bg-amber-400 group-hover:text-slate-950'
-                      }`}>
-                        {option.key}
-                      </span>
-                      <span className="font-bold text-sm md:text-base pt-0.5 leading-snug">
-                        {option.text}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {step === 'lead' && (
-            <div className="max-w-2xl mx-auto text-center space-y-8 py-4 animate-in fade-in zoom-in-95 duration-500">
-              {isSubmitting ? (
-                <div className="flex flex-col items-center justify-center space-y-6 py-12">
-                  <div className="relative">
-                    <div className="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
-                    <Plane className="w-6 h-6 text-amber-500 absolute inset-0 m-auto animate-pulse" />
-                  </div>
-                  <div className="space-y-2">
-                    <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-amber-600 animate-pulse">ANALYZING VACATION PARAMETERS</span>
-                    <span className="block text-slate-400 font-bold text-xs uppercase tracking-widest">Compiling wholesale markup variances...</span>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className="w-20 h-20 bg-amber-50 rounded-3xl flex items-center justify-center text-amber-600 mx-auto border border-amber-100 shadow-inner animate-float">
-                    <ShieldCheck className="w-10 h-10" />
-                  </div>
-                  <div className="space-y-3">
-                    <h2 className="text-3xl md:text-5xl font-black text-slate-950 uppercase tracking-tighter leading-none">
-                      DIAGNOSTIC SAVED.
-                    </h2>
-                    <p className="text-slate-500 font-medium text-sm md:text-base leading-relaxed max-w-xl mx-auto">
-                      Where should we dispatch your custom wholesale analysis report? Save your email to immediately access your confidential system walkthrough.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleLeadSubmit} className="space-y-6 text-left max-w-lg mx-auto">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2">Full Legal Name</label>
-                        <input 
-                          required
-                          type="text" 
-                          placeholder="First & Last Name" 
-                          value={leadName}
-                          onChange={(e) => setLeadName(e.target.value)}
-                          className="w-full h-14 bg-slate-50 rounded-2xl px-5 outline-none border-2 border-slate-100 focus:border-amber-400 focus:bg-white text-slate-900 font-bold transition-all" 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-2">Confidential Delivery Email</label>
-                        <input 
-                          required
-                          type="email" 
-                          placeholder="name@domain.com" 
-                          value={leadEmail}
-                          onChange={(e) => setLeadEmail(e.target.value)}
-                          className="w-full h-14 bg-slate-50 rounded-2xl px-5 outline-none border-2 border-slate-100 focus:border-amber-400 focus:bg-white text-slate-900 font-bold transition-all" 
-                        />
-                      </div>
-                    </div>
-                    
-                    <ActionButton type="submit" variant="waitlist" className="w-full py-5 text-sm uppercase font-black tracking-widest">
-                      Generate Private Savings Matrix
-                    </ActionButton>
-                  </form>
-                </>
-              )}
-            </div>
-          )}
-
-          {step === 'results' && (
-            <div className="space-y-8 md:space-y-10 py-2 animate-in zoom-in-95 duration-500">
-              
-              {/* Alert Ribbon */}
-              <div className="bg-red-50 border-2 sm:border-4 border-red-500/80 rounded-2xl sm:rounded-3xl p-5 text-center shadow-lg relative overflow-hidden">
-                <div className="absolute top-0 left-0 bottom-0 w-2 bg-red-600" />
-                <h3 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-black text-red-700 tracking-tighter uppercase leading-tight">
-                  🚨 WARNING: You are currently wasting approximately ${calculatedLoss.toLocaleString()} per year on public retail booking margins.
-                </h3>
-              </div>
-
-              {/* Persona Display */}
-              <div className="bg-slate-950 text-white rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden">
-                <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/10 blur-[80px] rounded-full pointer-events-none" />
-                <div className="text-center lg:text-left space-y-2 relative z-10 w-full lg:w-auto">
-                  <span className="text-[10px] font-black text-amber-400 uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">Assigned Profile</span>
-                  <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tighter uppercase italic leading-none mt-2">
-                    {personaTitle}
-                  </h4>
-                  <p className="text-slate-400 font-medium text-xs sm:text-sm lg:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                    {personaDesc}
-                  </p>
-                </div>
-                <div className="bg-gradient-to-br from-amber-400 to-amber-500 p-5 md:p-6 rounded-2xl sm:rounded-3xl text-slate-950 font-black text-center shrink-0 w-full sm:w-auto min-w-[220px] shadow-2xl relative z-10 border border-amber-300">
-                  <span className="block text-[10px] uppercase tracking-widest opacity-85">Verified Annual Leakage</span>
-                  <span className="text-2xl sm:text-3xl block mt-1 tracking-tight">${calculatedLoss.toLocaleString()} / Yr</span>
-                </div>
-              </div>
-
-              {/* Embedded Interactive Backoffice Presentation */}
-              <div className="space-y-4">
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-2 border-b border-slate-100 pb-3">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">SECURE BACK-OFFICE INVENTORY BROADCAST</span>
-                  <div className="flex items-center space-x-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-[9px] font-black tracking-widest uppercase border border-green-100">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping" />
-                    <span>Live Session Connected</span>
-                  </div>
-                </div>
-                <div className="relative aspect-video w-full rounded-2xl md:rounded-[32px] overflow-hidden border-4 md:border-8 border-slate-950 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.8)] bg-black gold-glow">
-                  <iframe 
-                    src={DIAGNOSTIC_VIDEO_URL} 
-                    className="w-full h-full"
-                    loading="lazy" 
-                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
-                    allowFullScreen
-                  />
-                </div>
-              </div>
-
-              {/* Action Suite */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-2">
-                <ActionButton 
-                  variant="primary" 
-                  className="w-full sm:w-auto px-10 py-5 text-sm font-black"
-                  onClick={() => {
-                    // Automatically triggers SMS app on mobile devices with pre-filled message
-                    window.location.href = "sms:+17658107271?&body=TPXLife";
-                  }}
-                >
-                  Text TPXLife to 765.810.7271 for more info
-                </ActionButton>
-                <button 
-                  onClick={() => {
-                    onClose();
-                    setView('presentation');
-                  }}
-                  className="text-slate-500 hover:text-slate-950 font-black uppercase text-[10px] tracking-widest py-2 hover:underline transition-colors"
-                >
-                  Explore Premium Perks
-                </button>
-                <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-200" />
-                <button 
-                  onClick={() => {
-                    setStep(1);
-                    setAnswers({ q1: null, q2: null, q3: null, q4: null, q5: null });
-                  }}
-                  className="text-slate-400 hover:text-slate-950 font-black uppercase text-[10px] tracking-widest py-2 transition-colors"
-                >
-                  Reset Scan
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+  const chosen = answers[3] ?? 0;
+  const recs = [
+    {title:"Your starting point: Content Clarity",desc:"A repeatable content plan can make it easier to show up and explain what you offer.",resource:"Start with the Travel Marketing Academy and ready-to-record scripts."},
+    {title:"Your starting point: Confident Video",desc:"You want to communicate more naturally on camera without memorizing everything.",resource:"Try the free Mr. Prompterson teleprompter and video lessons."},
+    {title:"Your starting point: Lead Capture",desc:"A useful quiz or landing page can give interested people a clear next step.",resource:"Explore the No Time to Share example and funnel training."},
+    {title:"Your starting point: Follow-Up",desc:"A simple, permission-based follow-up process helps you keep conversations organized.",resource:"Start with lead-generation and follow-up lessons in the hub."}
+  ];
+  const rec = recs[chosen];
+  const reset = () => {setStep(0);setAnswers({});};
+  return <div className="fixed inset-0 z-[200] flex justify-center items-start overflow-y-auto bg-slate-950/90 backdrop-blur-xl p-3 sm:p-8 py-8 sm:py-16">
+    <div className="bg-white w-full max-w-3xl rounded-[32px] shadow-2xl overflow-hidden relative my-auto">
+      <div className="flex justify-between items-center px-6 sm:px-10 py-6 border-b border-slate-200">
+        <div><p className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-600">TravelProX Marketing Checkup</p><p className="font-black text-slate-950 uppercase text-sm">Find your next marketing move</p></div>
+        <button aria-label="Close marketing checkup" onClick={onClose}><X className="w-6 h-6 text-slate-500"/></button>
+      </div>
+      <div className="p-6 sm:p-10">
+        {step < questions.length ? <>
+          <p className="text-amber-600 text-xs font-black uppercase tracking-widest mb-3">Question {step+1} of {questions.length}</p>
+          <div className="w-full h-2 rounded-full bg-slate-100 mb-8"><div className="h-2 rounded-full bg-amber-400 transition-all" style={{width:`${((step+1)/questions.length)*100}%`}}/></div>
+          <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 mb-8">{questions[step].title}</h2>
+          <div className="grid sm:grid-cols-2 gap-4">{questions[step].options.map((opt,i)=><button key={opt} onClick={()=>{setAnswers(prev=>({...prev,[step]:i}));setStep(prev=>prev+1)}} className="text-left border-2 border-slate-100 hover:border-amber-400 bg-slate-50 rounded-2xl p-5 font-bold text-slate-800 transition-colors">{String.fromCharCode(65+i)}. {opt}</button>)}</div>
+          {step>0&&<button className="mt-6 text-slate-500 font-bold text-sm" onClick={()=>setStep(prev=>prev-1)}>← Previous question</button>}
+        </>:<>
+          <span className="inline-flex rounded-full bg-amber-100 text-amber-800 font-black text-xs uppercase tracking-widest px-4 py-2 mb-5">Your suggested next step</span>
+          <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 mb-4">{rec.title}</h2>
+          <p className="text-slate-600 text-lg leading-relaxed mb-5">{rec.desc}</p>
+          <div className="rounded-2xl bg-slate-950 text-white p-6 mb-7"><p className="text-amber-400 font-black uppercase text-xs tracking-widest mb-2">Recommended resource</p><p className="font-bold">{rec.resource}</p></div>
+          <p className="text-slate-500 text-sm mb-6">This is a practical recommendation based on your answers, not a scored assessment or a promise of business results. No email is required to see it.</p>
+          <div className="flex flex-wrap gap-3"><a className="inline-flex rounded-xl bg-amber-400 px-6 py-4 font-black uppercase text-xs tracking-widest text-slate-950" href="/marketing-hub/">Explore Free Marketing Hub →</a><button className="rounded-xl border border-slate-300 px-6 py-4 font-black uppercase text-xs tracking-widest text-slate-700" onClick={reset}>Retake checkup</button></div>
+        </>}
       </div>
     </div>
-  );
+  </div>;
 };
 
 /**
@@ -668,95 +383,14 @@ const SavingsTicker = () => {
 /**
  * FLUID RESPONSIVE GLASS SYSTEM HEADER
  */
-const Header = ({ setView, activeView }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <nav className="fixed top-0 left-0 w-full z-[100] px-4 md:px-6 py-6 pointer-events-none">
-      <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/95 backdrop-blur-xl border border-slate-200/60 rounded-[28px] px-6 py-4 shadow-2xl pointer-events-auto relative">
-        
-        {/* Brand */}
-        <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => { setView('home'); setIsOpen(false); }}>
-          <div className="p-2.5 bg-slate-950 rounded-xl group-hover:rotate-12 transition-transform shadow-lg shadow-amber-500/10">
-            <Plane className="w-5 h-5 text-amber-400" />
-          </div>
-          <span className="font-black text-slate-950 tracking-tighter text-xl uppercase">
-            TRAVELPRO<span className="text-amber-500 text-2xl italic leading-none">X</span>
-          </span>
-        </div>
-
-        {/* Desktop Links */}
-        <div className="hidden lg:flex items-center space-x-8">
-          <button 
-            onClick={() => setView('presentation')} 
-            className={`text-[10px] font-black uppercase tracking-widest transition-colors ${
-              activeView === 'presentation' ? 'text-amber-500' : 'text-slate-500 hover:text-slate-950'
-            }`}
-          >
-            Member Perks
-          </button>
-          <button 
-            onClick={() => setView('home')} 
-            className={`text-[10px] font-black uppercase tracking-widest transition-colors ${
-              activeView === 'home' ? 'text-amber-500' : 'text-slate-500 hover:text-slate-950'
-            }`}
-          >
-            Core Portal
-          </button>
-          <div className="w-[1px] h-4 bg-slate-200" />
-          <button 
-            onClick={() => setView('agency')} 
-            className={`text-[10px] font-black uppercase tracking-widest transition-all px-4 py-2 bg-amber-50/50 hover:bg-amber-100/50 rounded-full border border-amber-200/40 ${
-              activeView === 'agency' ? 'text-amber-600 bg-amber-100/50' : 'text-slate-500 hover:text-slate-950'
-            }`}
-          >
-            Promoter Hub
-          </button>
-        </div>
-
-        {/* Desktop CTA */}
-        <div className="hidden lg:block">
-          <ActionButton variant="primary" noGloss className="py-2.5 px-6 rounded-xl text-[10px] uppercase tracking-widest" onClick={() => setView('agency')}>
-            Partner Club
-          </ActionButton>
-        </div>
-
-        {/* Mobile Hamburger Controls */}
-        <button className="lg:hidden p-2 text-slate-800 hover:bg-slate-50 rounded-xl transition-all" onClick={() => setIsOpen(!isOpen)}>
-          <Menu className="w-6 h-6" />
-        </button>
-
-        {/* Mobile Panel Overlay */}
-        {isOpen && (
-          <div className="absolute top-[90px] left-0 right-0 bg-white/95 backdrop-blur-2xl border border-slate-200/80 rounded-3xl p-6 shadow-2xl flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4 duration-200 pointer-events-auto">
-            <button 
-              onClick={() => { setView('presentation'); setIsOpen(false); }} 
-              className="text-left font-black uppercase tracking-wider text-xs py-2 text-slate-800 hover:text-amber-500"
-            >
-              Member Perks & Vault
-            </button>
-            <button 
-              onClick={() => { setView('home'); setIsOpen(false); }} 
-              className="text-left font-black uppercase tracking-wider text-xs py-2 text-slate-800 hover:text-amber-500"
-            >
-              Core Search Portal
-            </button>
-            <button 
-              onClick={() => { setView('agency'); setIsOpen(false); }} 
-              className="text-left font-black uppercase tracking-wider text-xs py-2 text-slate-800 hover:text-amber-500"
-            >
-              Promoter Hub
-            </button>
-            <hr className="border-slate-100" />
-            <ActionButton variant="primary" noGloss className="py-3 px-6 rounded-xl text-[11px] uppercase tracking-wider w-full" onClick={() => { setView('agency'); setIsOpen(false); }}>
-              Partner Program
-            </ActionButton>
-          </div>
-        )}
-
-      </div>
-    </nav>
-  );
+const Header = ({ setView }) => {
+  const [isOpen,setIsOpen] = useState(false);
+  return <nav className="fixed top-0 left-0 w-full z-[100] px-4 md:px-6 py-5 pointer-events-none"><div className="max-w-7xl mx-auto flex items-center justify-between bg-white/95 backdrop-blur-xl border border-slate-200 rounded-[24px] px-5 sm:px-8 py-4 shadow-2xl pointer-events-auto">
+    <button onClick={()=>setView('home')} className="flex items-center gap-3 font-black text-xl uppercase tracking-tighter text-slate-950"><Plane className="w-6 h-6 text-amber-500"/> TRAVELPRO<span className="text-amber-500 italic">X</span></button>
+    <div className="hidden sm:flex items-center gap-6"><button onClick={()=>setView('home')} className="text-xs font-black uppercase tracking-widest text-slate-700">Home</button><a href="/marketing-hub/" className="text-xs font-black uppercase tracking-widest text-slate-700">Marketing Hub</a><a href="/marketing-hub/#member" className="rounded-xl bg-amber-400 px-5 py-3 text-xs font-black uppercase tracking-widest text-slate-950">Free Member Access</a></div>
+    <button className="sm:hidden text-slate-950" aria-label="Toggle menu" onClick={()=>setIsOpen(!isOpen)}><Menu/></button>
+    {isOpen&&<div className="absolute top-[78px] left-4 right-4 rounded-2xl bg-white p-5 shadow-xl flex flex-col gap-4"><button className="text-left font-bold" onClick={()=>{setView('home');setIsOpen(false)}}>Home</button><a href="/marketing-hub/" className="font-bold">Marketing Hub</a><a href="/marketing-hub/#member" className="font-bold">Free Member Access</a></div>}
+  </div></nav>;
 };
 
 /**
@@ -787,23 +421,23 @@ const HomeView = ({ openWaitlist, setView }) => {
         <div className="relative z-10 w-full max-w-6xl text-center">
           <ScrollReveal>
             <div className="mb-10 flex flex-col items-center space-y-8">
-              <SavingsTicker />
+
               
               <h1 className="text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem] xl:text-[13rem] font-black text-white tracking-tighter leading-[0.8] uppercase drop-shadow-[0_10px_50px_rgba(0,0,0,0.65)]">
-                THE TRAVEL <br/> 
+                TRAVEL MARKETING <br/> 
                 <span className="bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent italic drop-shadow-[0_15px_30px_rgba(245,158,11,0.25)]">
-                  QUIZ...
+                  HUB.
                 </span>
               </h1>
               
               <p className="text-white text-base sm:text-xl md:text-2xl font-bold max-w-3xl mx-auto leading-relaxed drop-shadow-lg opacity-95">
-                Stop paying retail brokers. Our private club members access "Unlisted" wholesale contracts locked down by verified travel networks.
+                Free creator tools, practical marketing training, and lead-generation resources for travel agents, creators, and independent travel marketers.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 max-w-md sm:max-w-none mx-auto">
-              <ActionButton variant="primary" className="w-full sm:w-auto px-12 py-6 text-base tracking-widest" onClick={() => setIsQuizOpen(true)}>
-                Scan Travel Profile
+              <ActionButton variant="primary" className="w-full sm:w-auto px-12 py-6 text-base tracking-widest" onClick={() => window.location.assign("/marketing-hub/")}>
+                Explore Free Marketing Hub
               </ActionButton>
               <button 
                 onClick={() => {
@@ -812,210 +446,41 @@ const HomeView = ({ openWaitlist, setView }) => {
                 }} 
                 className="group text-white font-black text-xs uppercase tracking-[0.4em] flex items-center hover:text-amber-400 transition-colors py-4 px-6 rounded-full hover:bg-white/5"
               >
-                View Live Comp <MoveRight className="ml-3 w-5 h-5 group-hover:translate-x-3 transition-transform" />
+                Discover Free Tools <MoveRight className="ml-3 w-5 h-5 group-hover:translate-x-3 transition-transform" />
               </button>
             </div>
           </ScrollReveal>
 
-          {/* DYNAMIC SCALED SCANNING COMPONENT */}
-          <ScrollReveal>
-            <div 
-              onClick={() => setIsQuizOpen(true)}
-              className="max-w-4xl mx-auto bg-white/95 backdrop-blur-2xl rounded-[32px] sm:rounded-[40px] shadow-[0_32px_80px_-16px_rgba(0,0,0,0.4)] border border-white overflow-hidden cursor-pointer group hover:scale-[1.01] transition-all duration-500"
-            >
-              <div className="flex border-b border-slate-100 bg-slate-50/50">
-                {['Hotel Diagnostic Scanner', 'Flight Route Optimizer', 'Cruise Sizer'].map((tab, idx) => (
-                  <div
-                    key={tab}
-                    className={`flex-1 py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-center transition-all ${
-                      idx === 0 ? 'bg-white text-amber-600 border-b-4 border-amber-500' : 'text-slate-400 group-hover:text-slate-600'
-                    }`}
-                  >
-                    {tab}
-                  </div>
-                ))}
-              </div>
-              <div className="p-6 sm:p-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  
-                  <div className="bg-slate-50/80 p-5 rounded-2xl text-left border border-slate-100 group-hover:bg-slate-100/50 transition-colors">
-                    <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Primary Target</span>
-                    <div className="flex items-center space-x-3 text-slate-500 font-bold italic text-sm">
-                      <MapPin className="w-5 h-5 text-amber-500 animate-bounce" />
-                      <span>Select Vacation Target Hub</span>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-slate-50/80 p-5 rounded-2xl text-left border border-slate-100 group-hover:bg-slate-100/50 transition-colors">
-                    <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Diagnostic Profile</span>
-                    <div className="flex items-center space-x-3 text-slate-500 font-bold italic text-sm">
-                      <Calendar className="w-5 h-5 text-orange-500" />
-                      <span>Input Frequency & Budgets</span>
-                    </div>
-                  </div>
-                  
-                  <ActionButton variant="orange" className="h-full rounded-2xl cursor-pointer" onClick={() => setIsQuizOpen(true)}>
-                    <Search className="w-4 h-4 animate-pulse mr-2" />
-                    <span>Run Unlisted Audit</span>
-                  </ActionButton>
-
-                </div>
-              </div>
+          <div className="max-w-3xl mx-auto rounded-[32px] bg-white/95 backdrop-blur-xl p-7 sm:p-10 shadow-2xl border border-white text-left">
+            <span className="text-amber-600 text-xs font-black uppercase tracking-widest">Not sure what marketing tool you need?</span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight mt-2 mb-3">Take the free 5-question marketing checkup</h2>
+            <p className="text-slate-600 font-medium mb-6">Identify your biggest marketing challenge and get a suggested starting point. No email required.</p>
+            <div className="flex flex-wrap gap-3">
+              <button onClick={() => setIsQuizOpen(true)} className="rounded-xl bg-amber-400 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Start Marketing Checkup</button>
+              <a href="/marketing-hub/#member" className="rounded-xl border border-slate-300 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Marketing Hub Sign In</a>
             </div>
-          </ScrollReveal>
+          </div>
         </div>
       </section>
 
       {/* RETAIL AUDIT COMPLEMENT (MODAL CONTAINER TRIGGER) */}
       <TravelerQuiz isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} setView={setView} />
 
-      {/* MEMBER COMPARATIVE INTEL */}
-      <section id="insights" className="max-w-7xl mx-auto px-4 sm:px-6 py-24 sm:py-32 bg-white">
-        <ScrollReveal>
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-slate-100 pb-12 gap-8">
-            <div className="max-w-2xl">
-              <span className="text-xs font-black uppercase tracking-[0.5em] text-amber-600 block mb-3">Pricing Variance Index</span>
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-slate-950 tracking-tighter uppercase leading-[0.85] italic">
-                STEP BEHIND THE VELVET ROPE.
-              </h2>
-            </div>
-            <p className="text-slate-500 font-bold max-w-xs text-sm leading-relaxed">
-              Public indexes reflect standard retail brokerage margins. Cleared members unlock 25% to 60% system reductions across all nodes.
-            </p>
+      <section id="insights" className="bg-slate-50 py-20 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-amber-600 font-black uppercase tracking-widest text-xs mb-3">Tools built for travel entrepreneurs</p>
+          <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter text-slate-950 mb-5">Create. Connect. Grow.</h2>
+          <p className="text-slate-600 font-medium max-w-2xl mx-auto mb-10">Learn practical marketing skills, record stronger videos, and explore lead-generation funnels without needing to join a travel company.</p>
+          <div className="grid md:grid-cols-3 gap-5 text-left">
+            {[{title:'Creator Tools',desc:'Use free tools to record and share better travel content.'},{title:'Marketing Academy',desc:'Learn practical content, lead-generation, and follow-up basics.'},{title:'Funnel Examples',desc:'See how a travel quiz can introduce an offer and invite interested people to connect.'}].map(item=><div key={item.title} className="rounded-3xl bg-white border border-slate-200 p-8 shadow-sm"><h3 className="text-xl font-black uppercase text-slate-950 mb-3">{item.title}</h3><p className="text-slate-600">{item.desc}</p></div>)}
           </div>
-        </ScrollReveal>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            { name: "Florida", loc: "Miami Beach", price: "189", tag: "Beachfront VIP" },
-            { name: "New York", loc: "Times Square Luxury", price: "245", tag: "Penthouse Suite" },
-            { name: "Las Vegas", loc: "The Strip Premium", price: "99", tag: "High Roller" },
-            { name: "Cancun", loc: "Tropical All-Inclusive", price: "220", tag: "Paradise Cove" }
-          ].map((dest, i) => (
-            <ScrollReveal key={i}>
-              <div className="group cursor-pointer">
-                <div className="relative h-[480px] sm:h-[520px] rounded-[48px] overflow-hidden mb-6 border-4 border-slate-50 shadow-2xl transition-all duration-700 hover:-translate-y-3">
-                  <img src={DESTINATION_ASSETS[dest.name]} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt={dest.name} />
-                  <div className="absolute top-8 left-8">
-                    <span className="px-5 py-2 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full text-[9px] font-black text-slate-950 uppercase tracking-widest shadow-lg border border-yellow-300">
-                      {dest.tag}
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                  <div className="absolute bottom-8 left-8 right-8 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <ActionButton variant="waitlist" className="w-full py-4 rounded-2xl" onClick={() => setIsQuizOpen(true)}>Verify Special Rate</ActionButton>
-                  </div>
-                </div>
-                
-                <div className="flex justify-between items-start px-4">
-                  <div>
-                    <h3 className="text-2xl font-black text-slate-950 uppercase tracking-tighter leading-none mb-1.5">{dest.name}</h3>
-                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest flex items-center">
-                      <MapPin className="w-3.5 h-3.5 mr-1 text-amber-500 shrink-0" /> {dest.loc}
-                    </p>
-                  </div>
-                  <div className="text-right shrink-0">
-                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest line-through mb-0.5">Retail: ${parseInt(dest.price) + 120}</p>
-                     <p className="text-xl sm:text-2xl font-black text-amber-600 leading-none">${dest.price}/n</p>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
+          <a href="/marketing-hub/" className="inline-flex mt-9 rounded-xl bg-slate-950 text-amber-400 font-black uppercase text-xs tracking-widest px-8 py-5">Explore the Marketing Hub →</a>
         </div>
       </section>
 
-      {/* DOCUMENTED MEMBER DIARIES */}
-      <section className="bg-slate-950 py-24 sm:py-36 px-4 sm:px-6 overflow-hidden">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal className="text-center">
-            <div className="inline-flex items-center space-x-2.5 px-5 py-2.5 mb-8 text-[10px] font-black tracking-[0.4em] uppercase bg-white/5 text-amber-400 rounded-full border border-white/10">
-              <PlayCircle className="w-4 h-4 animate-spin-slow" />
-              <span>Real Live Walkthrough Diaries</span>
-            </div>
-            
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tighter uppercase leading-[0.9] mb-12">
-              RAW MEMBER FEED. <br/> <span className="text-white/30 italic">UNCOMPENSATED PROOF.</span>
-            </h2>
-
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-6 mb-16">
-              {[
-                "Net-Wholesale Hotel Inventory",
-                "Flight Consolidator Clearances",
-                "Deep Cruise Access Keys",
-                "Zero Retail Surcharges"
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center space-x-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl shadow-inner">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span className="text-white/90 font-bold text-xs uppercase tracking-wider">{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="relative max-w-4xl mx-auto mb-16 group">
-              <div className="absolute -inset-10 bg-amber-400/10 blur-[100px] rounded-full animate-pulse pointer-events-none" />
-              <div className="relative aspect-video w-full rounded-[32px] sm:rounded-[48px] overflow-hidden border-[6px] sm:border-[12px] border-white/5 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] transition-all duration-700 group-hover:scale-[1.005]">
-                <iframe 
-                  src={TESTIMONIAL_VIDEO_URL} 
-                  className="w-full h-full"
-                  loading="lazy" 
-                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
-                  allowFullScreen
-                />
-              </div>
-            </div>
-
-            <ActionButton variant="primary" className="mx-auto px-12 py-5 text-base tracking-widest" onClick={() => setIsQuizOpen(true)}>
-              Start Live Verification Process <MoveRight className="ml-3 w-5 h-5" />
-            </ActionButton>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="bg-white pt-24 pb-16 px-4 sm:px-6 border-t border-slate-100">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-16 mb-20">
-          <div className="lg:col-span-2">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="p-2.5 bg-slate-950 rounded-xl">
-                <Plane className="w-5 h-5 text-amber-400" />
-              </div>
-              <span className="font-black text-slate-950 text-2xl tracking-tighter uppercase">TRAVELPRO<span className="text-amber-500">X</span></span>
-            </div>
-            <p className="text-slate-500 font-medium max-w-md leading-relaxed mb-8 text-base">
-              Operating a global wholesale allocation framework. By amalgamating active group volume, we deliver direct manufacturer rates bypass commissions.
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Internal Navigation</h4>
-            <ul className="space-y-4">
-              <li><button onClick={() => setView('home')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Global Core Portal</button></li>
-              <li><button onClick={() => setView('agency')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">Promoter Network</button></li>
-              <li><button onClick={() => setView('presentation')} className="text-slate-950 font-black uppercase tracking-widest text-xs hover:text-amber-600 transition-colors">VIP Benefits Vault</button></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Core Status</h4>
-            <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-100/50">
-               <div className="flex items-center space-x-3 mb-2">
-                 <span className="relative flex h-2.5 w-2.5">
-                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                 </span>
-                 <span className="text-[10px] font-black text-emerald-800 uppercase tracking-widest">Scanning Nodes Online</span>
-               </div>
-               <p className="text-[11px] font-bold text-slate-600 leading-snug">Global distribution network and travel APIs operational.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">
-            © 2026 TRAVEL PRO X & CALLISTA DIGITAL • EST. 2014
-          </p>
-        </div>
+      <footer className="bg-white border-t border-slate-200 py-12 px-5 text-center">
+        <div className="flex flex-wrap justify-center gap-6 mb-5 text-xs uppercase font-black tracking-widest text-slate-700"><a href="/marketing-hub/">Marketing Hub</a><a href="/marketing-hub/#member">Member Access</a></div>
+        <p className="text-xs text-slate-500">© 2026 TravelProX & Callista Digital</p>
       </footer>
     </div>
   );
@@ -1369,22 +834,8 @@ const App = () => {
       )}
 
       {/* Shared Modals */}
-      <WaitlistModal isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
 
-      {/* Sticky High-Urgency Floating Hotspot */}
-      <div 
-        onClick={() => setIsWaitlistOpen(true)}
-        className="fixed bottom-6 right-6 z-[120] bg-white border border-slate-200/60 p-1.5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex items-center space-x-1 cursor-pointer hover:scale-105 active:scale-95 transition-all group"
-      >
-        <div className="bg-slate-950 px-5 py-3 rounded-full flex items-center space-x-2.5 shadow-lg">
-           <Timer className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
-           <span className="text-[11px] font-black text-white uppercase tracking-widest">{spotsLeft} Vacancies Left</span>
-        </div>
-        <div className="px-3.5 py-3 hidden md:flex items-center space-x-1.5">
-           <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Secure Seat</span>
-           <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:translate-x-1 transition-transform" />
-        </div>
-      </div>
+
     </div>
   );
 };
