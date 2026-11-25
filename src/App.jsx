@@ -408,8 +408,8 @@ const HomeView = ({ openWaitlist, setView }) => {
                 </span>
               </h1>
               
-              <p className="text-white text-base sm:text-xl md:text-2xl font-bold max-w-3xl mx-auto leading-relaxed drop-shadow-lg opacity-95">
-                Congratulations! You’ve just discovered what we’re building to be the last travel marketing platform you’ll ever need.
+              <p className="text-white text-xl sm:text-3xl md:text-4xl font-black max-w-4xl mx-auto leading-tight drop-shadow-lg opacity-95">
+                Congratulations! You just found the last travel marketing software you'll ever need.
               </p>
               <p className="text-white font-bold text-sm sm:text-lg drop-shadow-lg">Capture attention. Spark curiosity. Generate leads. Build your brand.</p>
             </div>
@@ -454,7 +454,14 @@ const HomeView = ({ openWaitlist, setView }) => {
             <p className="text-slate-600 font-medium leading-relaxed">Short-form video sparks curiosity. Interactive quiz funnels invite participation, build momentum through small commitments and make information personally relevant. Together, they give prospects a reason to explore your brand at their own pace.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            {[['01','Capture attention','Create short-form social content that earns the next few seconds.'],['02','Spark curiosity','Give viewers a compelling reason to visit your website.'],['03','Invite participation','Use easy quiz questions to turn passive viewers into active participants.'],['04','Personalize','Show relevant information based on their answers.'],['05','Connect','Invite interested prospects to share their details and continue the conversation.']].map(([n,title,desc])=><div key={n} className="rounded-3xl bg-slate-50 border border-slate-200 p-6 shadow-sm"><span className="text-amber-600 font-black text-xs tracking-widest">STEP {n}</span><h3 className="text-xl font-black uppercase text-slate-950 my-3">{title}</h3><p className="text-slate-600">{desc}</p></div>)}
+            {[['01','Capture attention','Create short-form social content that earns the next few seconds.',Camera],['02','Spark curiosity','Give viewers a compelling reason to visit your website.',Sparkles],['03','Invite participation','Use easy quiz questions to turn passive viewers into active participants.',CheckCircle2],['04','Personalize','Show relevant information based on their answers.',MapPin],['05','Connect','Invite interested prospects to share their details and continue the conversation.',Users]].map(([n,title,desc,Icon])=><div key={n} className="group relative overflow-hidden rounded-3xl bg-slate-950 border border-amber-400/30 p-6 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-amber-400/10 via-transparent to-transparent pointer-events-none"/>
+              <div className="relative">
+                <div className="flex items-center justify-between mb-6"><span className="text-amber-300 font-black text-xs tracking-widest">STEP {n}</span><Plane aria-hidden="true" className="w-4 h-4 text-amber-400/60 rotate-45"/></div>
+                <div className="relative w-20 h-20 mx-auto mb-6 rounded-2xl border border-amber-400/50 bg-gradient-to-br from-slate-800 to-slate-950 flex items-center justify-center shadow-[0_0_25px_rgba(251,191,36,0.15)] group-hover:scale-105 transition-transform"><Icon aria-hidden="true" className="w-10 h-10 text-amber-300" strokeWidth={1.6}/><span aria-hidden="true" className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-amber-400 border-2 border-slate-950 flex items-center justify-center"><span className="w-1.5 h-1.5 rounded-full bg-slate-950"/></span></div>
+                <h3 className="text-xl font-black uppercase text-white mb-3">{title}</h3><p className="text-slate-300 text-sm leading-relaxed">{desc}</p>
+              </div>
+            </div>)}
           </div>
           <div className="text-center mt-12"><h3 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter text-slate-950">Stop chasing. <span className="text-amber-600">Start attracting.</span></h3><p className="text-slate-600 font-medium mt-4 max-w-2xl mx-auto">Start today with our free creator tools and marketing training. Our personalized quiz funnel builder and private lead dashboard are coming soon.</p></div>
         </div>
