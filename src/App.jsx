@@ -409,8 +409,9 @@ const HomeView = ({ openWaitlist, setView }) => {
               </h1>
               
               <p className="text-white text-base sm:text-xl md:text-2xl font-bold max-w-3xl mx-auto leading-relaxed drop-shadow-lg opacity-95">
-                Independent travel marketing technology. Free creator tools, practical training, and upcoming personalized funnels for travel professionals.
+                Congratulations! You’ve just discovered what we’re building to be the last travel marketing platform you’ll ever need.
               </p>
+              <p className="text-white font-bold text-sm sm:text-lg drop-shadow-lg">Capture attention. Spark curiosity. Generate leads. Build your brand.</p>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 max-w-md sm:max-w-none mx-auto">
@@ -443,6 +444,21 @@ const HomeView = ({ openWaitlist, setView }) => {
 
       {/* RETAIL AUDIT COMPLEMENT (MODAL CONTAINER TRIGGER) */}
       <TravelerQuiz isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} setView={setView} />
+
+      <section className="bg-white py-20 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <p className="text-amber-600 font-black uppercase tracking-widest text-xs mb-3">The next generation of travel marketing</p>
+            <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter text-slate-950 mb-5">The world has changed. Has your marketing?</h2>
+            <p className="text-slate-600 font-medium leading-relaxed mb-4">In a world of TikTok, Instagram Reels, Facebook and YouTube Shorts, the window to capture attention is incredibly short. Long presentations and generic sales pitches can lose people before they discover the value of your offer.</p>
+            <p className="text-slate-600 font-medium leading-relaxed">Short-form video sparks curiosity. Interactive quiz funnels invite participation, build momentum through small commitments and make information personally relevant. Together, they give prospects a reason to explore your brand at their own pace.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {[['01','Capture attention','Create short-form social content that earns the next few seconds.'],['02','Spark curiosity','Give viewers a compelling reason to visit your website.'],['03','Invite participation','Use easy quiz questions to turn passive viewers into active participants.'],['04','Personalize','Show relevant information based on their answers.'],['05','Connect','Invite interested prospects to share their details and continue the conversation.']].map(([n,title,desc])=><div key={n} className="rounded-3xl bg-slate-50 border border-slate-200 p-6 shadow-sm"><span className="text-amber-600 font-black text-xs tracking-widest">STEP {n}</span><h3 className="text-xl font-black uppercase text-slate-950 my-3">{title}</h3><p className="text-slate-600">{desc}</p></div>)}
+          </div>
+          <div className="text-center mt-12"><h3 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter text-slate-950">Stop chasing. <span className="text-amber-600">Start attracting.</span></h3><p className="text-slate-600 font-medium mt-4 max-w-2xl mx-auto">Start today with our free creator tools and marketing training. Our personalized quiz funnel builder and private lead dashboard are coming soon.</p></div>
+        </div>
+      </section>
 
       <section id="insights" className="bg-slate-50 py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto text-center">
