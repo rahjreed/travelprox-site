@@ -53,7 +53,6 @@ const PERKS_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/43d40616-
 const DIAGNOSTIC_VIDEO_URL = "https://player.mediadelivery.net/embed/587199/03a48a31-4610-4d41-b4fc-72f8f4a84af2";
 
 const ROGER_PROFILE_IMAGE = "https://images.travelprox.com/callista/rahj.png";
-const TRAVORIUM_ENROLL_URL = "https://travorium.com/enroll.php?sponsor=376362";
 
 const DESTINATION_ASSETS = {
   "Florida": "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80", // Miami high res
@@ -62,28 +61,7 @@ const DESTINATION_ASSETS = {
   "Cancun": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"  // Cancun high res
 };
 
-const SAVINGS_FEED = [
-  { user: "Sarah J.", location: "Miami", saved: "$420", time: "1m ago" },
-  { user: "Michael R.", location: "Cancun", saved: "$890", time: "3m ago" },
-  { user: "Elena W.", location: "NYC", saved: "$310", time: "1m ago" },
-  { user: "David K.", location: "Vegas", saved: "$1,200", time: "8m ago" },
-  { user: "Sophia L.", location: "Paris", saved: "$540", time: "12m ago" },
-  { user: "Marcus T.", location: "Dubai", saved: "$2,100", time: "15m ago" },
-  { user: "Julian M.", location: "Bali", saved: "$760", time: "18m ago" },
-  { user: "Aria V.", location: "London", saved: "$480", time: "21m ago" },
-  { user: "Chloe B.", location: "Rome", saved: "$390", time: "24m ago" },
-  { user: "Nathan S.", location: "Santorini", saved: "$1,150", time: "26m ago" },
-  { user: "Isabella G.", location: "Mykonos", saved: "$920", time: "29m ago" },
-  { user: "Liam P.", location: "Aspen", saved: "$630", time: "31m ago" },
-  { user: "Olivia H.", location: "Tulum", saved: "$410", time: "33m ago" },
-  { user: "Ethan W.", location: "Barcelona", saved: "$580", time: "35m ago" },
-  { user: "Mia C.", location: "Maldives", saved: "$2,450", time: "38m ago" },
-  { user: "Noah F.", location: "Amalfi", saved: "$1,340", time: "40m ago" },
-  { user: "Ava R.", location: "Ibiza", saved: "$720", time: "42m ago" },
-  { user: "Lucas D.", location: "Cabo", saved: "$850", time: "45m ago" },
-  { user: "Emma S.", location: "Zurich", saved: "$610", time: "47m ago" },
-  { user: "James K.", location: "Tokyo", saved: "$1,080", time: "50m ago" },
-];
+const SAVINGS_FEED = [];
 
 /**
  * UNIQUE CORE ANIMATIONS & GLOBAL GLASSY DESIGN UTILITIES
@@ -420,7 +398,7 @@ const HomeView = ({ openWaitlist, setView }) => {
 
         <div className="relative z-10 w-full max-w-6xl text-center">
           <ScrollReveal>
-            <div className="mb-10 flex flex-col items-center space-y-8">
+            <div className="mb-10 flex flex-col items-center space-y-8"><a href="https://www.callistadigital.com/" className="text-white text-xs font-black uppercase tracking-widest drop-shadow-lg">A Callista Digital Company</a>
 
               
               <h1 className="text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem] xl:text-[13rem] font-black text-white tracking-tighter leading-[0.8] uppercase drop-shadow-[0_10px_50px_rgba(0,0,0,0.65)]">
@@ -431,7 +409,7 @@ const HomeView = ({ openWaitlist, setView }) => {
               </h1>
               
               <p className="text-white text-base sm:text-xl md:text-2xl font-bold max-w-3xl mx-auto leading-relaxed drop-shadow-lg opacity-95">
-                Free creator tools, practical marketing training, and lead-generation resources for travel agents, creators, and independent travel marketers.
+                Independent travel marketing technology. Free creator tools, practical training, and upcoming personalized funnels for travel professionals.
               </p>
             </div>
             
@@ -472,7 +450,7 @@ const HomeView = ({ openWaitlist, setView }) => {
           <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter text-slate-950 mb-5">Create. Connect. Grow.</h2>
           <p className="text-slate-600 font-medium max-w-2xl mx-auto mb-10">Learn practical marketing skills, record stronger videos, and explore lead-generation funnels without needing to join a travel company.</p>
           <div className="grid md:grid-cols-3 gap-5 text-left">
-            {[{title:'Creator Tools',desc:'Use free tools to record and share better travel content.'},{title:'Marketing Academy',desc:'Learn practical content, lead-generation, and follow-up basics.'},{title:'Funnel Examples',desc:'See how a travel quiz can introduce an offer and invite interested people to connect.'}].map(item=><div key={item.title} className="rounded-3xl bg-white border border-slate-200 p-8 shadow-sm"><h3 className="text-xl font-black uppercase text-slate-950 mb-3">{item.title}</h3><p className="text-slate-600">{item.desc}</p></div>)}
+            {[{title:'Creator Tools',desc:'Use Mr. Prompterson, our free video teleprompter, to record and share better travel content.'},{title:'Marketing Academy',desc:'Learn practical content, lead-generation, and follow-up basics.'},{title:'Funnel Builder — Coming Soon',desc:'Create your own branded travel website, personalized quiz and lead dashboard.'}].map(item=><div key={item.title} className="rounded-3xl bg-white border border-slate-200 p-8 shadow-sm"><h3 className="text-xl font-black uppercase text-slate-950 mb-3">{item.title}</h3><p className="text-slate-600">{item.desc}</p></div>)}
           </div>
           <a href="/marketing-hub/" className="inline-flex mt-9 rounded-xl bg-slate-950 text-amber-400 font-black uppercase text-xs tracking-widest px-8 py-5">Explore the Marketing Hub →</a>
         </div>
@@ -480,364 +458,10 @@ const HomeView = ({ openWaitlist, setView }) => {
 
       <footer className="bg-white border-t border-slate-200 py-12 px-5 text-center">
         <div className="flex flex-wrap justify-center gap-6 mb-5 text-xs uppercase font-black tracking-widest text-slate-700"><a href="/marketing-hub/">Marketing Hub</a><a href="/marketing-hub/#member">Member Access</a></div>
-        <p className="text-xs text-slate-500">© 2026 TravelProX & Callista Digital</p>
+        <p className="text-xs text-slate-500">© 2026 Travel Pro X · <a href="https://www.callistadigital.com/">A Callista Digital Company</a></p>
       </footer>
     </div>
   );
 };
 
-/**
- * AGENCY VIEW COMPONENT
- */
-const AgencyView = ({ setView }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isSaved, setIsSaved] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSaved(true);
-
-    try {
-      const formData = new FormData();
-      formData.append('fields[first_name]', name);
-      formData.append('email_address', email);
-      
-      await fetch("https://app.kit.com/forms/9018899/subscriptions", {
-        method: "POST",
-        body: formData,
-        mode: 'no-cors'
-      });
-    } catch (err) {
-      // safe fallback
-    }
-
-    setTimeout(() => {
-      setView('presentation');
-    }, 1500);
-  };
-
-  return (
-    <div className="bg-slate-50 min-h-screen text-slate-900 overflow-x-hidden">
-      <main className="pt-40 pb-24 px-4 sm:px-6 max-w-7xl mx-auto">
-        <ScrollReveal>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start mb-24">
-            
-            {/* Core Info Columns */}
-            <div className="relative lg:col-span-7">
-              <div className="inline-flex items-center space-x-2.5 px-4 py-2 mb-8 text-[10px] font-black tracking-[0.5em] uppercase bg-amber-100 text-amber-700 rounded-full border border-amber-200">
-                <Zap className="w-3.5 h-3.5" />
-                <span>Platinum Club Promoter</span>
-              </div>
-              
-              <h1 className="text-4xl sm:text-6xl md:text-[6.5rem] font-black tracking-tighter uppercase leading-[0.85] mb-10 text-slate-950">
-                GENERATE A <br/> TRAVEL <br/> <span className="text-amber-500 italic">EMPIRE.</span>
-              </h1>
-              
-              <p className="text-lg sm:text-2xl text-slate-600 font-medium leading-relaxed mb-10 max-w-xl">
-                Partner directly with our team as a <span className="text-slate-950 font-black">Platinum Travel Club Promoter</span>. Power your business via <span className="text-amber-600 font-black">Travorium</span>.
-              </p>
-              
-              <div className="space-y-6 mb-12">
-                 <div className="flex items-start space-x-5 bg-white p-6 sm:p-8 rounded-[32px] border border-slate-200/50 shadow-sm transition-all hover:scale-[1.01]">
-                    <div className="bg-amber-50 p-4 rounded-2xl text-amber-500 shrink-0 border border-amber-100">
-                      <Sparkles className="w-6 h-6 animate-pulse" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-black uppercase tracking-tight text-slate-950 mb-1.5">Industry Rates up to 80% Off</h4>
-                      <p className="text-slate-500 text-sm font-semibold leading-relaxed">Platinum members bypass consumer brokers entirely, unlocking net wholesale rates on private inventories.</p>
-                    </div>
-                 </div>
-                 
-                 {/* WEB SYSTEM BONUS ACCENT CARD */}
-                 <div className="relative pt-10">
-                   <div className="absolute top-0 right-4 sm:right-6 z-20">
-                      <div className="relative animate-float">
-                        <div className="w-24 h-24 sm:w-36 sm:h-36 rounded-full border-4 sm:border-[6px] border-white shadow-2xl overflow-hidden gold-glow">
-                          <img src={ROGER_PROFILE_IMAGE} className="w-full h-full object-cover" alt="Roger Profile" />
-                        </div>
-                        <div className="absolute -bottom-1 right-1 bg-amber-400 p-2 rounded-xl shadow-lg border-2 border-white">
-                          <Wand2 className="w-4 h-4 text-slate-950" />
-                        </div>
-                      </div>
-                   </div>
-
-                   <div className="bg-slate-950 p-8 sm:p-12 rounded-[40px] sm:rounded-[48px] shadow-3xl border-2 border-amber-500/10 relative overflow-hidden group">
-                      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-amber-500/5 to-transparent pointer-events-none" />
-                      
-                      <div className="relative z-10 pr-20 sm:pr-24 lg:pr-0">
-                        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 mb-5 text-[9px] font-black tracking-[0.3em] uppercase bg-amber-400 text-slate-950 rounded-full border border-yellow-300">
-                          <Award className="w-3.5 h-3.5" />
-                          <span>Direct Sponsor Action Pack</span>
-                        </div>
-                        
-                        <h3 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tighter mb-4 leading-none italic">
-                          Bespoke Pages <br/> <span className="text-amber-400">Custom Styled.</span>
-                        </h3>
-                        
-                        <p className="text-slate-300 font-bold text-sm sm:text-base mb-6 leading-relaxed max-w-sm">
-                          As your designated pilot, <span className="text-white font-black">Roger Reed</span> will handcraft and deliver your high-converting online capture ecosystem.
-                        </p>
-
-                        <div className="grid grid-cols-1 gap-3 mb-8">
-                          {[
-                            "16-Year Veteran Web Architect Team",
-                            "High-Conversion Custom Funnels Built For You",
-                            "Direct Technical Configuration & Support"
-                          ].map((feat, index) => (
-                            <div key={index} className="flex items-center space-x-3 bg-white/5 p-3 rounded-xl border border-white/10">
-                              <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                              <span className="text-white font-black uppercase tracking-widest text-[9px] sm:text-[10px]">{feat}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="bg-white/10 rounded-2xl p-4 sm:p-5 border-l-4 border-amber-400">
-                          <p className="text-slate-400 text-[9px] uppercase font-black tracking-widest">Estimated Value Matrix</p>
-                          <p className="text-lg sm:text-2xl font-black text-white tracking-tight">
-                            $1,000+ <span className="text-amber-400 line-through text-xs sm:text-sm opacity-50 ml-1">RETAIL VALUE</span> 
-                            <span className="text-[9px] bg-white text-slate-950 px-2.5 py-1 rounded-full ml-3 italic shrink-0 font-bold">SPONSORED NO FEE</span>
-                          </p>
-                        </div>
-                      </div>
-                   </div>
-                 </div>
-              </div>
-
-              <button onClick={() => setView('home')} className="inline-flex items-center space-x-2 text-slate-400 font-black uppercase tracking-[0.3em] text-[9px] hover:text-slate-950 transition-colors mt-4">
-                <MoveRight className="w-4 h-4 rotate-180" />
-                <span>Return to Public Audit Vault</span>
-              </button>
-            </div>
-
-            {/* Sticky Application Form Column */}
-            <div className="lg:col-span-5 lg:sticky lg:top-36 mt-12 lg:mt-0">
-              <div className="bg-white p-6 sm:p-10 md:p-14 rounded-[40px] border border-slate-200/85 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] relative overflow-hidden">
-                <div className="relative z-10">
-                  <div className="w-16 h-16 bg-slate-950 rounded-2xl flex items-center justify-center text-amber-400 mx-auto mb-6 shadow-xl">
-                    <Users className="w-7 h-7" />
-                  </div>
-                  
-                  <h3 className="text-2xl sm:text-3xl font-black mb-8 uppercase tracking-tighter text-center italic text-slate-950 leading-none">
-                    PROMOTER INTAKE
-                  </h3>
-                  
-                  {isSaved ? (
-                    <div className="text-center py-12 animate-in zoom-in-95 duration-500">
-                      <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center text-green-500 mx-auto mb-4 border border-green-100 shadow-inner animate-bounce">
-                        <Check className="w-8 h-8 stroke-[3]" />
-                      </div>
-                      <h4 className="text-xl font-black text-slate-950 uppercase tracking-tighter mb-2">Request Processed!</h4>
-                      <p className="text-slate-400 text-xs font-semibold max-w-xs mx-auto leading-relaxed">
-                        Routing session directly to the Premium Perks presentation module...
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="space-y-2">
-                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 pl-1">Full Legal Name</label>
-                        <input 
-                          required 
-                          type="text" 
-                          placeholder="John Doe" 
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          className="w-full h-14 bg-slate-50 rounded-2xl px-5 outline-none focus:ring-4 ring-amber-400/10 text-slate-900 font-bold border-2 border-slate-100 focus:border-amber-400 focus:bg-white transition-all text-sm" 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 pl-1">Confidential Email</label>
-                        <input 
-                          required 
-                          type="email" 
-                          placeholder="partner@yourbrand.com" 
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full h-14 bg-slate-50 rounded-2xl px-5 outline-none focus:ring-4 ring-amber-400/10 text-slate-900 font-bold border-2 border-slate-100 focus:border-amber-400 focus:bg-white transition-all text-sm" 
-                        />
-                      </div>
-                      <ActionButton type="submit" variant="secondary" className="w-full py-5 text-sm tracking-wider font-black">
-                        Submit Secure Application
-                      </ActionButton>
-                      
-                      <div className="text-center space-y-4 pt-2">
-                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-relaxed">
-                          Platinum Travorium Protocol Verification • travelprox.com
-                        </p>
-                        <div className="flex items-center justify-center space-x-1.5 text-emerald-600">
-                          <ShieldCheck className="w-4 h-4" />
-                          <span className="text-[9px] font-black uppercase tracking-widest">Confidential Sponsor Queue</span>
-                        </div>
-                      </div>
-                    </form>
-                  )}
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </ScrollReveal>
-      </main>
-
-      <footer className="py-16 border-t border-slate-200 text-center px-4 bg-white">
-        <button onClick={() => setView('home')} className="mb-6 text-slate-400 hover:text-slate-950 transition-colors uppercase font-black text-[9px] tracking-[0.4em]">Return to Core Comparison Nodes</button>
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-          © 2026 TRAVEL PRO X & CALLISTA DIGITAL • EST. 2014
-        </p>
-      </footer>
-    </div>
-  );
-};
-
-/**
- * PRESENTATION VAULT VIEW COMPONENT
- */
-const PresentationView = ({ setView }) => {
-  const currentMonth = new Date().toLocaleString('default', { month: 'long' });
-
-  return (
-    <div className="bg-slate-950 min-h-screen text-white overflow-x-hidden selection:bg-amber-400 selection:text-slate-950">
-      <main className="pt-32 pb-24">
-        <ScrollReveal className="text-center">
-          
-          {/* TOP FLASH ACCENT */}
-          <div className="max-w-2xl mx-auto px-4 mb-8">
-            <div className="bg-amber-400/10 border border-amber-400/20 py-2 px-5 rounded-full inline-flex items-center space-x-2.5 shadow-lg">
-              <Gift className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-wider text-amber-300">
-                Platinum Exclusive: Lock in Membership this {currentMonth} for an Vegas Escape Voucher
-              </span>
-            </div>
-          </div>
-
-          <div className="px-4 mb-12 max-w-4xl mx-auto space-y-3">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none italic">
-              INSIDE THE <span className="text-amber-400 drop-shadow-[0_4px_15px_rgba(245,158,11,0.2)]">VAULT.</span>
-            </h1>
-            <p className="text-[10px] sm:text-sm text-slate-400 font-bold uppercase tracking-[0.3em] max-w-2xl mx-auto">
-              Confidential wholesale rates, premium rewards keys, and luxury portals revealed below.
-            </p>
-          </div>
-
-          {/* HIGH-RES IMMERSIVE EMBEDDED SYSTEM VIDEO */}
-          <div className="w-full relative group px-4 sm:px-6 mb-16">
-            <div className="absolute -inset-10 bg-amber-500/5 blur-[100px] rounded-full pointer-events-none" />
-            <div className="max-w-5xl mx-auto w-full">
-                <div className="relative aspect-video w-full rounded-2xl sm:rounded-[40px] overflow-hidden border-[6px] sm:border-[12px] border-white/5 shadow-3xl bg-black">
-                  <iframe 
-                    src={PERKS_VIDEO_URL} 
-                    className="w-full h-full"
-                    loading="lazy" 
-                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" 
-                    allowFullScreen
-                  />
-                </div>
-            </div>
-          </div>
-
-          {/* DYNAMIC SPONSOR REDIRECT PANEL */}
-          <div className="px-4 max-w-3xl mx-auto">
-            <a 
-              href={TRAVORIUM_ENROLL_URL} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="group relative flex flex-col items-center justify-center bg-white text-slate-950 p-6 sm:p-10 rounded-[32px] sm:rounded-[48px] hover:scale-[1.01] transition-all shadow-[0_20px_50px_rgba(255,255,255,0.08)] hover:shadow-[0_20px_60px_rgba(245,158,11,0.15)] w-full border border-white/80"
-            >
-              <div className="absolute inset-0 rounded-[32px] sm:rounded-[48px] bg-gradient-to-tr from-amber-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-              
-              <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-6 relative z-10">
-                <div className="text-center sm:text-left space-y-1">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-600 block">Travorium Platinum Enrollment</span>
-                  <span className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-950 block">Join Team & Initialize Account</span>
-                </div>
-                <div className="bg-slate-950 p-3 sm:p-4 rounded-full text-amber-400 group-hover:rotate-45 transition-transform shrink-0 shadow-lg shadow-amber-500/10">
-                  <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8" />
-                </div>
-              </div>
-            </a>
-            
-            <div className="mt-10 flex justify-center items-center space-x-8 opacity-50">
-                <div className="flex items-center space-x-2">
-                    <ShieldCheck className="w-4 h-4 text-amber-400" />
-                    <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest">Wholesale Contracts Secured</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <UserCheck className="w-4 h-4 text-amber-400" />
-                    <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest">Direct Placement Priority</span>
-                </div>
-            </div>
-
-            <button onClick={() => setView('home')} className="mt-16 text-white/30 hover:text-white font-black uppercase tracking-[0.4em] text-[9px] transition-colors">
-              Return to Public Portal
-            </button>
-          </div>
-
-        </ScrollReveal>
-      </main>
-
-      <footer className="py-16 border-t border-white/5 text-center px-4">
-          <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest text-center">
-            © 2026 TRAVEL PRO X & CALLISTA DIGITAL • EST. 2014
-          </p>
-      </footer>
-    </div>
-  );
-};
-
-/**
- * MASTER ENTRY SYSTEM
- */
-const App = () => {
-  const [view, setView] = useState('home'); 
-  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
-  // Dynamic Scarcity Module
-  const { spotsLeft } = useMemo(() => {
-    const now = new Date();
-    const dayOfMonth = now.getDate();
-    const remaining = Math.max(100 - (dayOfMonth - 1) * 3, 7); 
-    return { spotsLeft: remaining };
-  }, []);
-
-  // Script Loader for Kit Form System Integration
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://f.convertkit.com/ckjs/ck.5.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => { if (document.body.contains(script)) document.body.removeChild(script); }
-  }, []);
-
-  useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [view]);
-
-  return (
-    <div className="font-sans selection:bg-amber-400 selection:text-slate-950 text-slate-950 bg-slate-50 antialiased min-h-screen">
-      <style dangerouslySetInnerHTML={{ __html: customStyles }} />
-      
-      {/* Header Nodes */}
-      <Header setView={setView} activeView={view} />
-      
-      {/* Routing Nodes */}
-      {view === 'home' && (
-        <HomeView 
-          setView={setView}
-          openWaitlist={() => setIsWaitlistOpen(true)}
-        />
-      )}
-
-      {view === 'agency' && (
-        <AgencyView setView={setView} />
-      )}
-
-      {view === 'presentation' && (
-        <PresentationView setView={setView} />
-      )}
-
-      {/* Shared Modals */}
-
-
-    </div>
-  );
-};
-
-export default App;
+const App = () => { const [view,setView] = useState('home'); return <div className="font-sans selection:bg-amber-400 selection:text-slate-950 text-slate-950 bg-slate-50 antialiased min-h-screen"><style dangerouslySetInnerHTML={{__html:customStyles}}/><Header setView={setView}/><HomeView setView={setView}/></div>; }; export default App;
