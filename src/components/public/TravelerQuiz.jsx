@@ -80,7 +80,7 @@ const TravelerQuiz = ({ isOpen, onClose }) => {
           <p className="text-slate-600 text-lg leading-relaxed mb-5">{rec.desc}</p>
           <div className="rounded-2xl bg-slate-950 text-white p-6 mb-7"><p className="text-amber-400 font-black uppercase text-xs tracking-widest mb-2">Recommended resource</p><p className="font-bold">{rec.resource}</p></div>
           <p className="text-slate-500 text-sm mb-6">This is a practical recommendation based on your answers, not a scored assessment or a promise of business results. No email is required to see it.</p>
-          <div className="flex flex-wrap gap-3"><a className="inline-flex rounded-xl bg-amber-400 px-6 py-4 font-black uppercase text-xs tracking-widest text-slate-950" href="/marketing-hub/">Explore Free Marketing Hub →</a><button className="rounded-xl border border-slate-300 px-6 py-4 font-black uppercase text-xs tracking-widest text-slate-700" onClick={reset}>Retake checkup</button></div>
+          <div className="flex flex-wrap gap-3"><a className="inline-flex rounded-xl bg-amber-400 px-6 py-4 font-black uppercase text-xs tracking-widest text-slate-950" href="/#pricing">Explore Memberships →</a><button className="rounded-xl border border-slate-300 px-6 py-4 font-black uppercase text-xs tracking-widest text-slate-700" onClick={reset}>Retake checkup</button></div>
         </>}
       </div>
     </div>
