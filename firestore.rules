@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Initial fail-closed foundation. No client writes until validated server workflows exist.
+    function verified() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    function member(workspaceId) {
+      return verified() && exists(/databases/$(database)/documents/workspaces/$(workspaceId)/members/$(request.auth.uid))
+        && get(/databases/$(database)/documents/workspaces/$(workspaceId)/members/$(request.auth.uid)).data.active == true;
+    }
+    match /users/{uid} {
+      allow read: if verified() && request.auth.uid == uid;
+    }
+    match /workspaces/{workspaceId} {
+      allow read: if member(workspaceId);
+      match /members/{uid} {
+        allow read: if member(workspaceId) && request.auth.uid == uid;
+      }
+      match /entitlements/{id} {
+        allow read: if member(workspaceId);
+      }
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
