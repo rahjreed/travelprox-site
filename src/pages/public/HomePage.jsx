@@ -84,12 +84,12 @@ const HomeView = ({ openWaitlist, setView }) => {
               <p className="text-white text-xl sm:text-3xl md:text-4xl font-black max-w-4xl mx-auto leading-tight drop-shadow-lg opacity-95">
                 Congratulations! You just found the last travel marketing software you'll ever need.
               </p>
-              <p className="text-white font-bold text-sm sm:text-lg drop-shadow-lg">Capture attention. Spark curiosity. Generate leads. Build your brand.</p>
+              <p className="text-white font-bold text-sm sm:text-lg drop-shadow-lg">Attention. Education with curiosity. Recommend.</p>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 max-w-md sm:max-w-none mx-auto">
-              <ActionButton variant="primary" className="w-full sm:w-auto px-12 py-6 text-base tracking-widest" onClick={() => window.location.assign("/marketing-hub/")}>
-                Explore Free Marketing Hub
+              <ActionButton variant="primary" className="w-full sm:w-auto px-12 py-6 text-base tracking-widest" onClick={() => window.location.assign("/#pricing")}>
+                Explore Memberships
               </ActionButton>
               <button 
                 onClick={() => {
@@ -121,13 +121,13 @@ const HomeView = ({ openWaitlist, setView }) => {
       <section className="bg-white py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <p className="text-amber-600 font-black uppercase tracking-widest text-xs mb-3">The next generation of travel marketing</p>
-            <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter text-slate-950 mb-5">The world has changed. Has your marketing?</h2>
+            <p className="text-amber-600 font-black uppercase tracking-widest text-xs mb-3">The A.E.R. Method</p>
+            <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter text-slate-950 mb-5">Attract. Educate. Recommend.</h2>
             <p className="text-slate-600 font-medium leading-relaxed mb-4">In a world of TikTok, Instagram Reels, Facebook and YouTube Shorts, the window to capture attention is incredibly short. Long presentations and generic sales pitches can lose people before they discover the value of your offer.</p>
             <p className="text-slate-600 font-medium leading-relaxed">Short-form video sparks curiosity. Interactive quiz funnels invite participation, build momentum through small commitments and make information personally relevant. Together, they give prospects a reason to explore your brand at their own pace.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            {[['01','Capture attention','Create short-form social content that earns the next few seconds.',Camera],['02','Spark curiosity','Give viewers a compelling reason to visit your website.',Sparkles],['03','Invite participation','Use easy quiz questions to turn passive viewers into active participants.',CheckCircle2],['04','Personalize','Show relevant information based on their answers.',MapPin],['05','Connect','Invite interested prospects to share their details and continue the conversation.',Users]].map(([n,title,desc,Icon])=><div key={n} className="group relative overflow-hidden rounded-3xl bg-slate-950 border border-amber-400/30 p-6 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[['A','Attention','Earn attention with a truthful hook.',Camera],['E','Education with curiosity','Teach something useful that makes people want to learn more.',Sparkles],['R','Recommend','Invite interested viewers to take your travel or business opportunity quiz.',CheckCircle2]].map(([n,title,desc,Icon])=><div key={n} className="group relative overflow-hidden rounded-3xl bg-slate-950 border border-amber-400/30 p-6 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
               <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-amber-400/10 via-transparent to-transparent pointer-events-none"/>
               <div className="relative">
                 <div className="flex items-center justify-between mb-6"><span className="text-amber-300 font-black text-xs tracking-widest">STEP {n}</span><Plane aria-hidden="true" className="w-4 h-4 text-amber-400/60 rotate-45"/></div>
@@ -136,7 +136,7 @@ const HomeView = ({ openWaitlist, setView }) => {
               </div>
             </div>)}
           </div>
-          <div className="text-center mt-12"><h3 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter text-slate-950">Stop chasing. <span className="text-amber-600">Start attracting.</span></h3><p className="text-slate-600 font-medium mt-4 max-w-2xl mx-auto">Start today with our free creator tools and marketing training. Our personalized quiz funnel builder and private lead dashboard are coming soon.</p></div>
+          <div className="text-center mt-12"><h3 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter text-slate-950">Stop chasing. <span className="text-amber-600">Start attracting.</span></h3><p className="text-slate-600 font-medium mt-4 max-w-2xl mx-auto">Build a customer list or a recruiting prospect list with the same simple method. Our personalized quiz funnel builder and private lead dashboard are coming soon.</p></div>
         </div>
       </section>
 
