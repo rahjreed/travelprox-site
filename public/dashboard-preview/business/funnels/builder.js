@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),key='tpx-quiz-drafts-v1',limits={launch:0,economy:2,business:5,first:10};let drafts=[],active=null,step=0,answers=[],playing=null;
 try{const raw=JSON.parse(localStorage.getItem(key));if(Array.isArray(raw))drafts=raw.filter(q=>q&&typeof q.id==='string'&&Array.isArray(q.questions)&&Array.isArray(q.results)).slice(0,10)}catch{}
-function plan(){try{const p=JSON.parse(localStorage.getItem('tpx-dashboard-demo-v2'))?.plan;return Object.prototype.hasOwnProperty.call(limits,p)?p:'launch'}catch{return 'launch'}}
+function plan(){if(new URLSearchParams(location.search).get('previewClass')==='first')return 'first';try{const p=JSON.parse(localStorage.getItem('tpx-dashboard-demo-v2'))?.plan;return Object.prototype.hasOwnProperty.call(limits,p)?p:'first'}catch{return 'first'}}
 function limit(){return limits[plan()]||0}
 function node(tag,text,parent){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(parent)parent.append(el);return el}
 function button(text,parent,fn){const b=node('button',text,parent);b.type='button';b.onclick=fn;return b}
