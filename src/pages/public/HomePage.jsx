@@ -109,7 +109,7 @@ const HomeView = ({ openWaitlist, setView }) => {
             <p className="text-slate-600 font-medium mb-6">Identify your biggest marketing challenge and get a suggested starting point. No email required.</p>
             <div className="flex flex-wrap gap-3">
               <button onClick={() => setIsQuizOpen(true)} className="rounded-xl bg-amber-400 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Start Marketing Checkup</button>
-              <a href="/login/" className="rounded-xl border border-slate-300 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Marketing Hub Sign In</a>
+              <a href="/login/" className="rounded-xl border border-slate-300 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Member Login</a>
             </div>
           </div>
         </div>
@@ -148,13 +148,13 @@ const HomeView = ({ openWaitlist, setView }) => {
           <div className="grid md:grid-cols-3 gap-5 text-left">
             {[{title:'Creator Tools',desc:'Use Mr. Prompterson, our free video teleprompter, to record and share better travel content.'},{title:'Marketing Academy',desc:'Learn practical content, lead-generation, and follow-up basics.'},{title:'Funnel Builder — Coming Soon',desc:'Create your own branded travel website, personalized quiz and lead dashboard.'}].map(item=><div key={item.title} className="rounded-3xl bg-white border border-slate-200 p-8 shadow-sm"><h3 className="text-xl font-black uppercase text-slate-950 mb-3">{item.title}</h3><p className="text-slate-600">{item.desc}</p></div>)}
           </div>
-          <a href="/marketing-hub/" className="inline-flex mt-9 rounded-xl bg-slate-950 text-amber-400 font-black uppercase text-xs tracking-widest px-8 py-5">Explore the Marketing Hub →</a>
+          <a href="/#pricing" className="inline-flex mt-9 rounded-xl bg-slate-950 text-amber-400 font-black uppercase text-xs tracking-widest px-8 py-5">Explore Memberships →</a>
         </div>
       </section>
 
       <MembershipPlans/>
       <footer className="bg-white border-t border-slate-200 py-12 px-5 text-center">
-        <div className="flex flex-wrap justify-center gap-6 mb-5 text-xs uppercase font-black tracking-widest text-slate-700"><a href="/marketing-hub/">Marketing Hub</a><a href="/login/">Member Login</a></div>
+        <div className="flex flex-wrap justify-center gap-6 mb-5 text-xs uppercase font-black tracking-widest text-slate-700"><a href="/#pricing">Memberships</a><a href="/login/">Member Login</a></div>
         <p className="text-xs text-slate-500">© 2026 Travel Pro X · <a href="https://www.callistadigital.com/">A Callista Digital Company</a></p>
       </footer>
     </div>
