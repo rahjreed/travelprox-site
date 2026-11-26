@@ -1,3 +1,4 @@
+import MembershipPlans from '../../components/public/MembershipPlans';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   Globe,
@@ -108,7 +109,7 @@ const HomeView = ({ openWaitlist, setView }) => {
             <p className="text-slate-600 font-medium mb-6">Identify your biggest marketing challenge and get a suggested starting point. No email required.</p>
             <div className="flex flex-wrap gap-3">
               <button onClick={() => setIsQuizOpen(true)} className="rounded-xl bg-amber-400 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Start Marketing Checkup</button>
-              <a href="/marketing-hub/#member" className="rounded-xl border border-slate-300 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Marketing Hub Sign In</a>
+              <a href="/login/" className="rounded-xl border border-slate-300 px-6 py-4 text-slate-950 font-black uppercase text-xs tracking-widest">Marketing Hub Sign In</a>
             </div>
           </div>
         </div>
@@ -151,8 +152,9 @@ const HomeView = ({ openWaitlist, setView }) => {
         </div>
       </section>
 
+      <MembershipPlans/>
       <footer className="bg-white border-t border-slate-200 py-12 px-5 text-center">
-        <div className="flex flex-wrap justify-center gap-6 mb-5 text-xs uppercase font-black tracking-widest text-slate-700"><a href="/marketing-hub/">Marketing Hub</a><a href="/marketing-hub/#member">Member Access</a></div>
+        <div className="flex flex-wrap justify-center gap-6 mb-5 text-xs uppercase font-black tracking-widest text-slate-700"><a href="/marketing-hub/">Marketing Hub</a><a href="/login/">Member Login</a></div>
         <p className="text-xs text-slate-500">© 2026 Travel Pro X · <a href="https://www.callistadigital.com/">A Callista Digital Company</a></p>
       </footer>
     </div>
